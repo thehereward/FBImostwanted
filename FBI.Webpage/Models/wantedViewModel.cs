@@ -57,7 +57,7 @@ namespace FBI.Webpage.Models
         public string nationality { get; set; }
         public string scars_and_marks { get; set; }
         public string complexion { get; set; }
-        public string occupations { get; set; }
+        public List<string> occupations { get; set; }
         public List<string> possible_countries { get; set; }
         public List<string> possible_states { get; set; }
         public string modified { get; set; }
