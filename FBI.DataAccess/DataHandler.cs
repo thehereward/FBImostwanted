@@ -10,7 +10,7 @@ namespace FBI.DataAccess
 {
     public class DataHandler
     {
-        string cs = ;
+        string cs = "";
 
         public Root Root() {
             var json = new WebClient().DownloadString("https://api.fbi.gov/@wanted");
