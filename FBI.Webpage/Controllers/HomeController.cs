@@ -14,10 +14,6 @@ namespace FBI.Webpage.Controllers
     {
         public ActionResult Index()
         {
-            var data = new DataHandler();
-            var root = data.Root();
-            data.Save(root);
-
             return View();
         }
 
