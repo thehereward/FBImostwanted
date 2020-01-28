@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FBI.Webpage.Models;
 
 namespace FBI.Webpage.Controllers
 {
@@ -10,7 +11,10 @@ namespace FBI.Webpage.Controllers
     {
         public ActionResult Index()
         {
-            return View("About");
+            return View(new List<Item>{new Item {
+                uid = "abc",
+                images = new List<Image> { new Image { original = "foo.bar.com/hello"} }
+            } });
         }
 
         public ActionResult About()
