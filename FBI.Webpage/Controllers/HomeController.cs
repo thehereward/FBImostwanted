@@ -6,16 +6,17 @@ using System.Web;
 using System.Web.Mvc;
 using FBI.Webpage.Models;
 using Newtonsoft.Json;
+using FBI.DataAccess;
+
 namespace FBI.Webpage.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            var json = new WebClient().DownloadString("https://api.fbi.gov/@wanted");
-            var roots = JsonConvert.DeserializeObject<Root>(json, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-            return View(roots);
+            return View();
         }
+
 
         public ActionResult About()
         {
