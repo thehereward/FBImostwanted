@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FBI.Webpage.Models;
+using FBI.DataAccess;
 
 namespace FBI.Webpage.Controllers
 {
@@ -97,6 +98,13 @@ namespace FBI.Webpage.Controllers
                 message = ManageMessageId.Error;
             }
             return RedirectToAction("ManageLogins", new { Message = message });
+        }
+
+        public ActionResult UpdateDB()
+        {
+            var dataHandler = new DataHandler();
+            dataHandler.updateDB();
+            return RedirectToAction("Index", "Manage");
         }
 
         //

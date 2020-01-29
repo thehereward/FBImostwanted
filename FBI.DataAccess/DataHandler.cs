@@ -8,18 +8,21 @@ using System.Reflection;
 
 namespace FBI.DataAccess
 {
+    
     public class DataHandler
     {
-        string cs = "";
-
+        string cs = "Host=localhost;Username=postgres;Password=Password0512!;Database=mostWanted";
+        
         public Root Root()
         {
             var json = new WebClient().DownloadString("https://api.fbi.gov/@wanted");
             return JsonConvert.DeserializeObject<Root>(json, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
 
-        public void AddtoDB(Root root)
+        public void FillDB()
         {
+
+            var root = Root();
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
@@ -94,6 +97,26 @@ namespace FBI.DataAccess
 
                 cmd.ExecuteNonQuery();
 
+            }
+        }
+
+        public void updateDB()
+        {
+            
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+
+                var str = $"DELETE FROM item WHERE custom = false";
+
+                NpgsqlCommand cmd = new NpgsqlCommand();
+                cmd.CommandText = str;
+                cmd.Connection = con;
+
+
+                cmd.ExecuteNonQuery();
+
+                FillDB();
             }
         }
     }
