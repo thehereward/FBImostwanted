@@ -12,7 +12,8 @@ namespace FBI.DataAccess
     {
         string cs = "";
 
-        public Root Root() {
+        public Root Root()
+        {
             var json = new WebClient().DownloadString("https://api.fbi.gov/@wanted");
             return JsonConvert.DeserializeObject<Root>(json, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
@@ -23,12 +24,12 @@ namespace FBI.DataAccess
             {
                 con.Open();
 
-                foreach(var item in root.items)
+                foreach (var item in root.items)
                 {
                     NpgsqlCommand cmd = new NpgsqlCommand();
 
                     string images = "";
-                    foreach(var image in item.images)
+                    foreach (var image in item.images)
                     {
                         if (images == "")
                         {
@@ -58,8 +59,8 @@ namespace FBI.DataAccess
                     }
                     var remove = "";
                     if (item.caution != null)
-                        { remove = item.caution.Replace("'", ""); }
-                    
+                    { remove = item.caution.Replace("'", ""); }
+
                     var str = $"INSERT INTO item (uid, title, description, images, caution,reward_max, locations,status,nationality,reward_min) VALUES ('{item.uid}','{item.title}','{item.description}','{{{images}}}','{remove}',{item.reward_max}, '{{{locations}}}','{item.status}','{item.nationality}',{item.reward_min})";
                     cmd.CommandText = str;
 
@@ -69,13 +70,31 @@ namespace FBI.DataAccess
                     {
                         cmd.ExecuteNonQuery();
                     }
-                    catch 
+                    catch
                     {
 
                     }
                 }
             }
 
+        }
+
+        public void SelfDestruct()
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+
+                var str = $"DELETE FROM item";
+
+                NpgsqlCommand cmd = new NpgsqlCommand();
+                cmd.CommandText = str;
+                cmd.Connection = con;
+
+
+                cmd.ExecuteNonQuery();
+
+            }
         }
     }
 }
