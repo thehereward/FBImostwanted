@@ -1,87 +1,42 @@
 ﻿@model FBI.Webpage.Models.IndexViewModel
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Admin Panel";
 }
 
 <h2>@ViewBag.Title.</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
+<div class="main-content">
+    <h1 class="page-title">Admin Panel</h1>
+    <div class="limited-width-container">
+        <img id="nuke-button" src="https://i.ya-webdesign.com/images/nuke-logo-png-11.png" />
+        <h1>Add new profiles</h1>
+        <div class="form-horizontal">
+            <div class="form-row">
+                <label for="Name">Name:</label>
+                <input type="text" id="title" value="" />
+            </div>
+            <div class="form-row">
+                <label for="Nationality">Nationality:</label>
+                <input type="text" id="nationality" value="" />
+            </div>
+            <div class="form-row">
+                <label for="Name">Prosecution:</label>
+                <input type="text" id="description" value="" />
+            </div>
+            <div class="form-row">
+                <label for="Caution">Caution Warning:</label>
+                <select name="license">
+                    <option id="caution">Neutral threat</option>
+                    <option id="caution">Armed and possibly dangerous</option>
+                    <option id="caution">Armed and dangerous</option>
+                    <option id="caution">Heavily armed and extremely dangerous</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="Photo">Photo:</label>
+                <input type="file" id="original" value="" />
+            </div>
+            <input type="submit" id="submit-button" value="Go!" class="btn btn-default" />
+        </div>
+    </div>
 </div>

@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FBI.Webpage.Models;
+using Newtonsoft.Json;
+using FBI.DataAccess;
+
+
 
 namespace FBI.Webpage.Controllers
 {
@@ -16,6 +21,7 @@ namespace FBI.Webpage.Controllers
                 images = new List<Image> { new Image { original = "foo.bar.com/hello"} }
             } });
         }
+
 
         public ActionResult About()
         {
