@@ -16,14 +16,17 @@ namespace FBI.Webpage.Controllers
     {
         public ActionResult Index()
         {
-            return View("Edit");
+            var json = new WebClient().DownloadString("https://api.fbi.gov/@wanted");
+            var roots = JsonConvert.DeserializeObject<Root>(json, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            return View(roots);
+            
         }
 
 
-        public ActionResult About()
+        public ActionResult Edit(Root root, int index)
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.Message = "MOST WANTED Profile";
+            Item signleProfile = root.items[index];
             return View();
         }
 
