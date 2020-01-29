@@ -107,6 +107,13 @@ namespace FBI.Webpage.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
+        public ActionResult Nuke()
+        {
+            var dataHandler = new DataHandler();
+            dataHandler.SelfDestruct();
+            return RedirectToAction("Index", "Manage");
+        }
+
         //
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()
