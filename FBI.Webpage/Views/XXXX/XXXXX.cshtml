@@ -1,28 +1,27 @@
-﻿@model IList<FBI.Webpage.Models.Item>
+﻿@model FBI.Webpage.Models.Item
 
 @{
     ViewBag.Title = "Most Wanted";
 }
 
 <div class="jumbotron">
-    
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-<h2>Most Wanted</h2>
+
 <div class="main-content">
     <div class="col-md-4">
-        
-        @foreach (var fugitive in @Model)
+        <h2>Most Wanted</h2>
+        @foreach (var name in @Model.uid)
         {
             <div class="image-container">
-                <a> <img id="main-photo" src="@fugitive.images[0].original" /></a>
+                <img id="main-photo" src="@Model.images[name].original" />
             </div>
             <ul>
-                <li><h4>Title: @fugitive.title</h4></li>
-                <li><h5>WARNING: @fugitive.warning_message</h5></li>
+                <li>Title: @Model.title[name]</li>
+                <li>Sex: @Model.sex[name]</li>
             </ul>
         }
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>

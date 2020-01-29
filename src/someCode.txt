@@ -1,0 +1,6 @@
+background-image: url(/imgs/main_image_1024.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    _webkit-background-size: cover;
+    _moz-background-size: cover;
+    _o-background-size: cover
