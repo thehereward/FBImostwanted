@@ -8,7 +8,8 @@
 <div class="main-content">
     <h1 class="page-title">Admin Panel</h1>
     <div class="limited-width-container">
-        <img id="nuke-button" src="https://i.ya-webdesign.com/images/nuke-logo-png-11.png" />
+        <img id="nuke-button" src="https://i.ya-webdesign.com/images/nuke-logo-png-11.png" onclick="location.href='@Url.Action("Nuke", "Manage")'" />
+        <input type="button" value="Update Database" onclick="location.href='@Url.Action("UpdateDB", "Manage")'" />
         <h1>Add new profiles</h1>
         <div class="form-horizontal">
             <div class="form-row">
