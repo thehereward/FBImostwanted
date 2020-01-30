@@ -47,7 +47,7 @@ namespace FBI.DataAccess
 
 
         }
-        public NpgsqlCommand addProfile(Item item, NpgsqlConnection con)
+        public NpgsqlCommand addProfile(Item item,Image image, NpgsqlConnection con)
         {
             var dataFormat = new dataFormatHandler();
             var str = $"INSERT INTO item (title, uid, nationality, images, reward_max, description, caution, custom)" +
@@ -61,7 +61,7 @@ namespace FBI.DataAccess
                             new NpgsqlParameter() { ParameterName = "uid", Value = item.uid},
                             new NpgsqlParameter() { ParameterName = "title", Value = item.title},
                             new NpgsqlParameter() { ParameterName = "description", Value = item.description},
-                            new NpgsqlParameter() { ParameterName = "images", Value = item.images.Select(x => x.large).ToList()},
+                            new NpgsqlParameter() { ParameterName = "images", Value = new List<string> {image.large } },
                             new NpgsqlParameter() { ParameterName = "caution", Value = dataFormat.stringIsNull(item.warning_message)},
                             new NpgsqlParameter() { ParameterName = "reward_max", Value = item.reward_max},
                             new NpgsqlParameter() { ParameterName = "nationality", Value = dataFormat.stringIsNull(item.nationality)}

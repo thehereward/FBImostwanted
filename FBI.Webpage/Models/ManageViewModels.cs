@@ -15,6 +15,7 @@ namespace FBI.Webpage.Models
         public bool BrowserRemembered { get; set; }
 
         public Item item { get; set; }
+        public Image image { get; set; }
 
     }
 

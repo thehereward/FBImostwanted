@@ -115,10 +115,10 @@ namespace FBI.Webpage.Controllers
             return RedirectToAction("Index", "Manage");
         }
        
-        public ActionResult AddProfile(Item item)
+        public ActionResult AddProfile(Item item, Image image)
         {
             var dataHandler = new DataHandler();
-            dataHandler.addProfile(item);
+            dataHandler.addProfile(item, image);
             return RedirectToAction("Index", "Home");
         }
         //

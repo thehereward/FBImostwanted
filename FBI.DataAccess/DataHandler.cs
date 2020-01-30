@@ -12,7 +12,7 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "Host=localhost;Username=postgres;Password=password;Database=FBImostwanted";
+        string cs = "Host=localhost;Username=postgres;Password=Password0512!;Database=mostWanted";
 
         public void FillDB()
         {
@@ -69,13 +69,13 @@ namespace FBI.DataAccess
             }
 
         }
-        public void addProfile(Item item)
+        public void addProfile(Item item, Image image)
         {
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
                 var queryBuilder = new queryBuilder();
-                var cmd = queryBuilder.addProfile(item, con);
+                var cmd = queryBuilder.addProfile(item, image, con);
                 try
                 {
                     cmd.ExecuteNonQuery();
