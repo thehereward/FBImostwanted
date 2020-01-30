@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FBI.DataAccess;
 using FBI.Webpage.Models;
 
 
@@ -13,8 +14,8 @@ namespace FBI.Webpage.Services
     {
         List<Item> GetAll();
 
-        //Not SURE
-        List<Item> GetOne();
+        ////////Not SURE
+        //////List<Item> GetOne();
     }
     
     public class DummyMostWantedRepository: IMostWantedRepository
@@ -26,11 +27,11 @@ namespace FBI.Webpage.Services
             return new List<Item>();
         }
 
-        //Not SURE
-        public List<Item> GetOne()
-        {
-            return new List<Item>();
-        }
+        ////////Not SURE
+        //////public List<Item> GetOne()
+        //////{
+        //////    return new List<Item>();
+        //////}
 
     }
 }

@@ -14,12 +14,17 @@ namespace FBI.Webpage.Controllers
 {
     public class HomeController : Controller
     {
+        private IMostWantedRepository _Repo;
+        public HomeController()
+        {
+            _Repo = new DummyMostWantedRepository();
+        }
+
+        [HttpGet]
         public ActionResult Index()
         {
-            return View(new List<Item>{new Item {
-                uid = "abc",
-                images = new List<Image> { new Image { original = "foo.bar.com/hello"} }
-            } });
+            var Model = _Repo.GetAll();
+            return View(Model);
         }
 
 

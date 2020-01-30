@@ -1,11 +1,11 @@
-﻿@model IList<FBI.Webpage.Models.Item>
+﻿@model FBI.DataAccess.Root
 
 @{
     ViewBag.Title = "Most Wanted";
 }
 
 <div class="jumbotron">
-    
+
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
@@ -14,11 +14,11 @@
 <h2>Most Wanted</h2>
 <div class="main-content">
     <div class="col-md-4">
-        
-        @foreach (var fugitive in @Model)
+
+        @foreach (var fugitive in Model.items)
         {
             <div class="image-container">
-                <a> <img id="main-photo" src="@fugitive.images[0].original" /></a>
+                <a> <img id="main-photo" src="@fugitive.images[0].large" /></a>
             </div>
             <ul>
                 <li><h4>Title: @fugitive.title</h4></li>
