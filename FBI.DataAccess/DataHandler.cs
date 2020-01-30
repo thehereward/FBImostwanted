@@ -1,18 +1,11 @@
-﻿using Newtonsoft.Json;
-using Npgsql;
-using System.Linq;
-using System;
-using System.IO;
-using System.Net;
-using System.Reflection;
-using System.Collections.Generic;
+﻿using Npgsql;
 
 namespace FBI.DataAccess
 {
 
     public class DataHandler
     {
-        string cs = "Host=localhost;Username=postgres;Password=Password0512!;Database=mostWanted";
+        string cs = "";
 
         public void FillDB()
         {
