@@ -1,5 +1,4 @@
-﻿using FBI.Webpage.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FBI.Webpage.Models;
 using Npgsql;
 
 namespace FBI.DataAccess
@@ -35,12 +34,37 @@ namespace FBI.DataAccess
                             new NpgsqlParameter() { ParameterName = "title", Value = item.title},
                             new NpgsqlParameter() { ParameterName = "description", Value = item.description},
                             new NpgsqlParameter() { ParameterName = "images", Value = item.images.Select(x => x.large).ToList()},
-                            new NpgsqlParameter() { ParameterName = "caution", Value = dataFormat.stringIsNull(item.caution)},
+                            new NpgsqlParameter() { ParameterName = "caution", Value = dataFormat.stringIsNull(item.warning_message)},
                             new NpgsqlParameter() { ParameterName = "reward_max", Value = item.reward_max},
                             new NpgsqlParameter() { ParameterName = "locations", Value = locations.ToList()},
                             new NpgsqlParameter() { ParameterName = "status", Value = item.status},
                             new NpgsqlParameter() { ParameterName = "nationality", Value = dataFormat.stringIsNull(item.nationality)},
                             new NpgsqlParameter() { ParameterName = "reward_min", Value = item.reward_min}
+                        }
+            };
+
+            return cmd;
+
+
+        }
+        public NpgsqlCommand addProfile(Item item, NpgsqlConnection con)
+        {
+            var dataFormat = new dataFormatHandler();
+            var str = $"INSERT INTO item (title, uid, nationality, images, reward_max, description, caution, custom)" +
+                $"VALUES (@title,@uid,@nationality,@images,@reward_max,@description,@caution, true)";
+            NpgsqlCommand cmd = new NpgsqlCommand
+            {
+                CommandText = str,
+                Connection = con,
+                Parameters =
+                        {   
+                            new NpgsqlParameter() { ParameterName = "uid", Value = item.uid},
+                            new NpgsqlParameter() { ParameterName = "title", Value = item.title},
+                            new NpgsqlParameter() { ParameterName = "description", Value = item.description},
+                            new NpgsqlParameter() { ParameterName = "images", Value = item.images.Select(x => x.large).ToList()},
+                            new NpgsqlParameter() { ParameterName = "caution", Value = dataFormat.stringIsNull(item.warning_message)},
+                            new NpgsqlParameter() { ParameterName = "reward_max", Value = item.reward_max},
+                            new NpgsqlParameter() { ParameterName = "nationality", Value = dataFormat.stringIsNull(item.nationality)}
                         }
             };
 

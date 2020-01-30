@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace FBI.Webpage.Models
+namespace FBI.DataAccess
 {
     public class Image
     {

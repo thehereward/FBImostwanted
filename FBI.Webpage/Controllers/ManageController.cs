@@ -113,7 +113,13 @@ namespace FBI.Webpage.Controllers
             dataHandler.SelfDestruct();
             return RedirectToAction("Index", "Manage");
         }
-
+        [HttpPost]
+        public ActionResult AddProfile(Item item)
+        {
+            var dataHandler = new DataHandler();
+            dataHandler.addProfile(item);
+            return RedirectToAction("Index", "Home");
+        }
         //
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()

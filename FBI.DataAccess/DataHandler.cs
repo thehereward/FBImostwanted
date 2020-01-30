@@ -1,5 +1,4 @@
-﻿using FBI.Webpage.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Npgsql;
 using System.Linq;
 using System;
@@ -13,7 +12,7 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "";
+        string cs = "Host=localhost;Username=postgres;Password=password;Database=FBImostwanted";
 
         public void FillDB()
         {
@@ -69,6 +68,18 @@ namespace FBI.DataAccess
                 FillDB();
             }
 
+        }
+        public void addProfile(Item item)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+                var queryBuilder = new queryBuilder();
+                var cmd = queryBuilder.addProfile(item, con);
+
+                cmd.ExecuteNonQuery();
+
+            }
         }
     }
 }

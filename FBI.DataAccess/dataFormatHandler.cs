@@ -13,7 +13,7 @@ namespace FBI.DataAccess
                 return "null";
             }
 
-            return "input";
+            return input;
         }
     }
 }
