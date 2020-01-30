@@ -24,9 +24,7 @@ namespace FBI.DataAccess
 
                     try
                     {
-
                         cmd.ExecuteNonQuery();
-
                     }
                     catch
                     {
