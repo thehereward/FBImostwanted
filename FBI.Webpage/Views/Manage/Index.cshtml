@@ -1,42 +1,71 @@
-﻿@model FBI.Webpage.Models.IndexViewModel
+﻿@model FBI.
 @{
     ViewBag.Title = "Admin Panel";
+    var title = "";
+    var nationality = "";
+    var description = "";
+    var warning_message = "";
+    var uid = "";
+    var original = "";
+    var reward_max = "";
+    if(IsPost)
+    {
+        title = Request.Form["title"];
+        nationality = Request.Form["nationality"];
+        description = Request.Form["description"];
+        warning_message = Request.Form["warning_message"];
+        uid = Request.Form["uid"];
+        original = Request.Form["original"];
+        reward_max = Request.Form["reward_max"];
+        var addProfile = new List<Item>() { title, nationality, description, warning_message, uid, original, reward_max };
+    }
 }
 
-<h2>@ViewBag.Title.</h2>
 
 <div class="main-content">
     <h1 class="page-title">Admin Panel</h1>
     <div class="limited-width-container">
         <img id="nuke-button" src="https://i.ya-webdesign.com/images/nuke-logo-png-11.png" />
         <h1>Add new profiles</h1>
-        <div class="form-horizontal">
-            <div class="form-row">
-                <label for="Name">Name:</label>
-                <input type="text" id="title" value="" />
-            </div>
-            <div class="form-row">
-                <label for="Nationality">Nationality:</label>
-                <input type="text" id="nationality" value="" />
-            </div>
-            <div class="form-row">
-                <label for="Name">Prosecution:</label>
-                <input type="text" id="description" value="" />
-            </div>
-            <div class="form-row">
-                <label for="Caution">Caution Warning:</label>
-                <select name="license">
-                    <option id="caution">Neutral threat</option>
-                    <option id="caution">Armed and possibly dangerous</option>
-                    <option id="caution">Armed and dangerous</option>
-                    <option id="caution">Heavily armed and extremely dangerous</option>
-                </select>
-            </div>
-            <div class="form-row">
-                <label for="Photo">Photo:</label>
-                <input type="file" id="original" value="" />
-            </div>
-            <input type="submit" id="submit-button" value="Go!" class="btn btn-default" />
-        </div>
+        <form method="post">
+            <fieldset>
+                <div class="form-horizontal">
+                    <div class="form-row">
+                        <label for="Uid">UID:</label>
+                        <input type="text" id="uid" value="" />
+                    </div>
+                    <div class="form-row">
+                        <label for="Name">Name:</label>
+                        <input type="text" id="title" value="" />
+                    </div>
+                    <div class="form-row">
+                        <label for="Nationality">Nationality:</label>
+                        <input type="text" id="nationality" value="" />
+                    </div>
+                    <div class="form-row">
+                        <label for="Name">Prosecution:</label>
+                        <input type="text" id="description" value="" />
+                    </div>
+                    <div class="form-row">
+                        <label for="Reward">Reward:</label>
+                        <input type="text" id="reward_max" value="" />
+                    </div>
+                    <div class="form-row">
+                        <label for="Warning message">Warning Message:</label>
+                        <select name="license">
+                            <option id="warning_message">Neutral threat</option>
+                            <option id="warning_message">Armed and possibly dangerous</option>
+                            <option id="warning_message">Armed and dangerous</option>
+                            <option id="warning_message">Heavily armed and extremely dangerous</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="Photo">Photo:</label>
+                        <input type="file" id="original" value="" />
+                    </div>
+                    <input type="submit" id="submit-button" value="Go!" class="btn btn-default" />
+                </div>
+            </fieldset>
+        </form>
     </div>
 </div>

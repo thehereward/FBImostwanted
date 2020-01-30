@@ -10,7 +10,7 @@ namespace FBI.DataAccess
 {
     public class DataHandler
     {
-        string cs = "";
+        string cs = "Host=localhost;Username=postgres;Password=password;Database=FBImostwanted";
 
         public Root Root()
         {
@@ -58,8 +58,8 @@ namespace FBI.DataAccess
                         }
                     }
                     var remove = "";
-                    if (item.caution != null)
-                    { remove = item.caution.Replace("'", ""); }
+                    if (item.warning_message != null)
+                    { remove = item.warning_message.Replace("'", ""); }
 
                     var str = $"INSERT INTO item (uid, title, description, images, caution,reward_max, locations,status,nationality,reward_min) VALUES ('{item.uid}','{item.title}','{item.description}','{{{images}}}','{remove}',{item.reward_max}, '{{{locations}}}','{item.status}','{item.nationality}',{item.reward_min})";
                     cmd.CommandText = str;
