@@ -71,7 +71,8 @@ namespace FBI.Webpage.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                item = new Item() { }
             };
             return View(model);
         }
@@ -113,7 +114,7 @@ namespace FBI.Webpage.Controllers
             dataHandler.SelfDestruct();
             return RedirectToAction("Index", "Manage");
         }
-        [HttpPost]
+       
         public ActionResult AddProfile(Item item)
         {
             var dataHandler = new DataHandler();

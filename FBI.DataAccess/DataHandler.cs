@@ -76,9 +76,14 @@ namespace FBI.DataAccess
                 con.Open();
                 var queryBuilder = new queryBuilder();
                 var cmd = queryBuilder.addProfile(item, con);
-
-                cmd.ExecuteNonQuery();
-
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw;
+                }
             }
         }
     }

@@ -1,26 +1,7 @@
-﻿@model FBI.DataAccess.Item
+﻿@model FBI.Webpage.Models.IndexViewModel
 @{
     ViewBag.Title = "Admin Panel";
-    //var title = "";
-    //var nationality = "";
-    //var description = "";
-    //var warning_message = "";
-    //var uid = "";
-    //var original = "";
-    //var reward_max = "";
-    //if(IsPost)
-    //{
-    //    Model.title = Request.Form["title"];
-    //    Model.nationality = Request.Form["nationality"];
-    //    Model.description = Request.Form["description"];
-    //    Model.warning_message = Request.Form["warning_message"];
-    //    Model.uid = Request.Form["uid"];
-    //    Model.images = Request.Form["original"].ToList();
-    //    Model.reward_max = int.Parse(Request.Form["reward_max"]);
-
-    //}
 }
-
 
 <div class="main-content">
     <h1 class="page-title">Admin Panel</h1>
@@ -28,7 +9,6 @@
         <img id="nuke-button" src="https://i.ya-webdesign.com/images/nuke-logo-png-11.png" onclick="location.href='@Url.Action("Nuke", "Manage")'" />
         <input type="button" value="Update Database" onclick="location.href='@Url.Action("UpdateDB", "Manage")'" />
         <h1>Add new profiles</h1>
-        <form method="post">
             @using (Html.BeginForm("AddProfile", "Manage"))
             {
                 <fieldset>
@@ -36,49 +16,48 @@
                         <div class="form-row">
                             <label for="Uid">UID:</label>
                             <div class="editor-label">
-                                @Html.TextBoxFor(model => model.uid)
+                                @Html.TextBoxFor(model => model.item.uid)
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="Name">Name:</label>
                             <div class="editor-label">
-                                @Html.TextBoxFor(model => model.title)
+                                @Html.TextBoxFor(model => model.item.title)
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="Nationality">Nationality:</label>
                             <div class="editor-label">
-                                @Html.TextBoxFor(model => model.nationality)
+                                @Html.TextBoxFor(model => model.item.nationality)
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="Name">Prosecution:</label>
                             <div class="editor-label">
-                                @Html.TextBoxFor(model => model.description)
+                                @Html.TextBoxFor(model => model.item.description)
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="Reward">Reward:</label>
                             <div class="editor-label">
-                                @Html.TextBoxFor(model => model.reward_max)
+                                @Html.TextBoxFor(model => model.item.reward_max)
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="Warning message">Warning Message:</label>
                             <div class="editor-label">
-                                @Html.TextBoxFor(model => model.warning_message)
+                                @Html.TextBoxFor(model => model.item.warning_message)
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="Photo">Photo:</label>
                             <div class="editor-label">
-                                @Html.TextBoxFor(model => model.images)
+                                @Html.TextBoxFor(model => model.item.images)
                             </div>
                         </div>
                         <input type="submit" id="submit-button" value="Go!" class="btn btn-default" />
                     </div>
                 </fieldset>
             }
-        </form>
     </div>
 </div>
