@@ -4,60 +4,62 @@
 }
 
 <div class="main-content">
-    <h1 class="page-title">Admin Panel</h1>
     <div class="limited-width-container">
+        <p>&nbsp</p>
+        <p>&nbsp</p>
+        <h1>Welcome to the Admin Panel:</h1>
         <img id="nuke-button" src="https://i.ya-webdesign.com/images/nuke-logo-png-11.png" onclick="location.href='@Url.Action("Nuke", "Manage")'" />
         <input type="button" value="Update Database" onclick="location.href='@Url.Action("UpdateDB", "Manage")'" />
-        <h1>Add new profiles</h1>
-            @using (Html.BeginForm("AddProfile", "Manage"))
-            {
-                <fieldset>
-                    <div class="form-horizontal">
-                        <div class="form-row">
-                            <label for="Uid">UID:</label>
-                            <div class="editor-label">
-                                @Html.TextBoxFor(model => model.item.uid)
-                            </div>
+        <h3>Add new profiles</h3>
+        @using (Html.BeginForm("AddProfile", "Manage"))
+        {
+            <fieldset>
+                <div class="form-horizontal">
+                    <div class="form-row">
+                        <label for="Uid">UID:</label>
+                        <div class="editor-label">
+                            @Html.TextBoxFor(model => model.item.uid)
                         </div>
-                        <div class="form-row">
-                            <label for="Name">Name:</label>
-                            <div class="editor-label">
-                                @Html.TextBoxFor(model => model.item.title)
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="Nationality">Nationality:</label>
-                            <div class="editor-label">
-                                @Html.TextBoxFor(model => model.item.nationality)
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="Name">Prosecution:</label>
-                            <div class="editor-label">
-                                @Html.TextBoxFor(model => model.item.description)
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="Reward">Reward:</label>
-                            <div class="editor-label">
-                                @Html.TextBoxFor(model => model.item.reward_max)
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="Warning message">Warning Message:</label>
-                            <div class="editor-label">
-                                @Html.TextBoxFor(model => model.item.warning_message)
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="Photo">Photo:</label>
-                            <div class="editor-label">
-                                @Html.TextBoxFor(model => model.image.large));
-                            </div>
-                        </div>
-                        <input type="submit" id="submit-button" value="Go!" class="btn btn-default" />
                     </div>
-                </fieldset>
-            }
+                    <div class="form-row">
+                        <label for="Name">Name:</label>
+                        <div class="editor-label">
+                            @Html.TextBoxFor(model => model.item.title)
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="Nationality">Nationality:</label>
+                        <div class="editor-label">
+                            @Html.TextBoxFor(model => model.item.nationality)
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="Name">Prosecution:</label>
+                        <div class="editor-label">
+                            @Html.TextBoxFor(model => model.item.description)
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="Reward">Reward:</label>
+                        <div class="editor-label">
+                            @Html.TextBoxFor(model => model.item.reward_max)
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="Warning message">Warning Message:</label>
+                        <div class="editor-label">
+                            @Html.TextBoxFor(model => model.item.warning_message)
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="Photo">Photo:</label>
+                        <div class="editor-label">
+                            @Html.TextBoxFor(model => model.image.large)
+                        </div>
+                    </div>
+                    <input type="submit" id="submit-button" value="Go!" class="btn btn-default" />
+                </div>
+            </fieldset>
+        }
     </div>
 </div>
