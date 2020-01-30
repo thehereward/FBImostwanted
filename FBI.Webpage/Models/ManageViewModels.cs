@@ -13,7 +13,6 @@ namespace FBI.Webpage.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
-
         public Item item { get; set; }
 
     }

@@ -42,11 +42,9 @@ namespace FBI.DataAccess
                             new NpgsqlParameter() { ParameterName = "reward_min", Value = item.reward_min}
                         }
             };
-
             return cmd;
-
-
         }
+
         public NpgsqlCommand addProfile(Item item, NpgsqlConnection con)
         {
             var dataFormat = new dataFormatHandler();
@@ -67,10 +65,7 @@ namespace FBI.DataAccess
                             new NpgsqlParameter() { ParameterName = "nationality", Value = dataFormat.stringIsNull(item.nationality)}
                         }
             };
-
             return cmd;
-
-
         }
 
         public NpgsqlCommand Nuke(NpgsqlConnection con)

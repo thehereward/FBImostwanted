@@ -69,6 +69,7 @@ namespace FBI.DataAccess
             }
 
         }
+
         public void addProfile(Item item)
         {
             using (var con = new NpgsqlConnection(cs))
