@@ -11,13 +11,12 @@
 </div>
 
 
-<div class="main-content">
-
+<div class="main-content234">
     @foreach (var fugitive in Model.items)
     {
-        <div class="col-md-4">
+        <div class="fugitive-list">
             <div>
-                <div class="image-container">
+                @*<div class="image-container">
                     <a> <img id="main-photo" src="@fugitive.images[0]" height="300" /></a>
                     <p class="user-link">@Html.ActionLink("ViewProfile", "Edit", "Home", fugitive)</p>
                 </div>
@@ -30,10 +29,22 @@
 
                                 @fugitive.caution
                             }
-                           
-                            
+
                         </h5>
                     </p>
+                </div>*@
+                <div class="card" style="float:right">
+                    <img class="card-image" src="@fugitive.images[0]" alt="Avatar" width="300">
+                    <div class="container">
+                        <h4><b>@fugitive.title</b></h4>
+                        <p>
+                            @if (fugitive.caution != "null")
+                            {
+
+                                @fugitive.caution
+                            }
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

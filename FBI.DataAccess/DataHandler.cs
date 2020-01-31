@@ -18,27 +18,29 @@ namespace FBI.DataAccess
 
         public void FillDB()
         {
-
-            var apiHandler = new apiHandler();
-            var root = apiHandler.Root();
-
-            foreach (var fugitive in root.items)
+            for (var i = 1; i <= 50; i++)
             {
-                using (var con = new NpgsqlConnection(cs))
+                var apiHandler = new apiHandler();
+                var root = apiHandler.Root(i);
+
+                foreach (var fugitive in root.items)
                 {
-                    con.Open();
-
-                    var queryBuilder = new queryBuilder();
-                    NpgsqlCommand cmd = queryBuilder.FillCommand(fugitive,con);
-
-                    try
+                    using (var con = new NpgsqlConnection(cs))
                     {
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch
-                    {
-                        //TODO: logging
-                        throw;
+                        con.Open();
+
+                        var queryBuilder = new queryBuilder();
+                        NpgsqlCommand cmd = queryBuilder.FillCommand(fugitive, con);
+
+                        try
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            //TODO: logging
+                            throw;
+                        }
                     }
                 }
             }
@@ -68,6 +70,24 @@ namespace FBI.DataAccess
                 FillDB();
             }
 
+        }
+
+        public void addProfile(Item item, Image image)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+                var queryBuilder = new queryBuilder();
+                var cmd = queryBuilder.addProfile(item, image, con);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw;
+                }
+            }
         }
         public Root2 GetFromDB()
         {
