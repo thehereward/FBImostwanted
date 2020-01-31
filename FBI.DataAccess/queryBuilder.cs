@@ -86,7 +86,7 @@ namespace FBI.DataAccess
         public NpgsqlCommand Index(NpgsqlConnection con)
         {
 
-            var str = $"SELECT images, title, caution FROM item WHERE title = @title";
+            var str = $"SELECT * FROM item WHERE title = @title";
 
             NpgsqlCommand cmd = new NpgsqlCommand()
             {

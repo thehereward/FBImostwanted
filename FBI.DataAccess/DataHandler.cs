@@ -80,7 +80,7 @@ namespace FBI.DataAccess
                 List<Item2> Fugitives = new List<Item2>();
 
                 Root2 root = new Root2() { items = Fugitives };
-                root.items = con.Query<Item2>($"SELECT images, title, caution FROM item").ToList();
+                root.items = con.Query<Item2>($"SELECT * FROM item").ToList();
 
                 return root;
             }
