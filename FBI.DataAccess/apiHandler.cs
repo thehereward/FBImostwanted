@@ -8,7 +8,7 @@ namespace FBI.DataAccess
 {
     class apiHandler
     {
-        public Root Root()
+        public Root Root(int page)
         {
             var json = new WebClient().DownloadString("https://api.fbi.gov/@wanted");
             return JsonConvert.DeserializeObject<Root>(json, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
