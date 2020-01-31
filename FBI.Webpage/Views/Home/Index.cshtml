@@ -11,40 +11,38 @@
 </div>
 
 
-<div class="main-content234">
+<div class="main-content">
+
     @foreach (var fugitive in Model.items)
     {
-        <div class="fugitive-list">
+        <div class="col-md-4">
             <div>
-                @*<div class="image-container">
-                    <a> <img id="main-photo" src="@fugitive.images[0]" height="300" /></a>
-                    <p class="user-link">@Html.ActionLink("ViewProfile", "Edit", "Home", fugitive)</p>
+                <div style="height: 400px; width: 300px;">
+                    <img src="@fugitive.images[0]" style="max-width:100%; height:auto;">
                 </div>
-                <div>
-                    <p><h4>@fugitive.title</h4></p>
+
+                <div class=>
+                
+                
+                    <p class="user-link">@Html.ActionLink("ViewProfile", "Edit", "Home", fugitive)</p>
+                    <p>
+                     <h4>@fugitive.title</h4>
+                    </p>
                     <p>
                         <h5>
                             @if (fugitive.caution != "null")
                             {
-
                                 @fugitive.caution
+                            }
+                            @if (fugitive.caution == "null")
+                            {
+                                <br />
+                                <br />
                             }
 
                         </h5>
                     </p>
-                </div>*@
-                <div class="card" style="float:right">
-                    <img class="card-image" src="@fugitive.images[0]" alt="Avatar" width="300">
-                    <div class="container">
-                        <h4><b>@fugitive.title</b></h4>
-                        <p>
-                            @if (fugitive.caution != "null")
-                            {
 
-                                @fugitive.caution
-                            }
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
