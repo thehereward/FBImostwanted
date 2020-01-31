@@ -14,16 +14,18 @@ namespace FBI.Webpage.Controllers
 {
     public class HomeController : Controller
     {
-        private IMostWantedRepository _Repo;
-        public HomeController()
-        {
-            _Repo = new DummyMostWantedRepository();
-        }
+        
+        DataHandler dataHandler = new DataHandler();
+        //public HomeController()
+        //{
+        //    DataHandler dataHandler = new DataHandler();
+        //}
 
         [HttpGet]
         public ActionResult Index()
         {
-            var Model = _Repo.GetAll();
+            dataHandler.updateDB();
+            var Model = dataHandler.GetFromDB();
             return View(Model);
         }
 

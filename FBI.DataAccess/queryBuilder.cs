@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FBI.Webpage.Models;
 using Npgsql;
 
 namespace FBI.DataAccess
@@ -67,6 +66,8 @@ namespace FBI.DataAccess
 
         }
 
+        
+
         public NpgsqlCommand updateCommand(NpgsqlConnection con)
         {
 
@@ -79,6 +80,24 @@ namespace FBI.DataAccess
             };
 
             return cmd;
+
+        }
+
+        public NpgsqlCommand Index(NpgsqlConnection con)
+        {
+
+            var str = $"SELECT images, title, caution FROM item WHERE title = @title";
+
+            NpgsqlCommand cmd = new NpgsqlCommand()
+            {
+                CommandText = str,
+                Connection = con
+            };
+
+
+            return cmd;
+
+
 
         }
     }

@@ -1,4 +1,4 @@
-﻿@model FBI.DataAccess.Root
+﻿@model FBI.DataAccess.MostWantedProfilesModel.Root2
 
 @{
     ViewBag.Title = "Most Wanted";
@@ -6,29 +6,44 @@
 
 <div class="jumbotron">
 
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>FBI Most Wanted</h1>
+    
 </div>
 
-<h2>Most Wanted</h2>
+
 <div class="main-content">
-    <div class="col-md-4">
+    
+    @foreach (var fugitive in Model.items)
+    {
+        
+        <div class="col-md-4">
 
-        @foreach (var fugitive in Model.items)
-        {
-            <div class="image-container">
-                <a> <img id="main-photo" src="@fugitive.images[0].large" /></a>
-            </div>
-            <ul>
-                <li><h4>Title: @fugitive.title</h4></li>
-                <li><h5>WARNING: @fugitive.warning_message</h5></li>
-            </ul>
-        }
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
+            <div>
+                <div class="image-container">
+                    <a> <img id="main-photo" src="@fugitive.images[0]" height="300" /></a>
+                    <p class="user-link">@Html.ActionLink("ViewProfile", "Edit", "Home", fugitive)</p>
 
-    </div>
+                </div>
+
+                <p><h4>@fugitive.title</h4></p>
+                <p>
+                    <h5>
+                        @if (fugitive.caution != null)
+                        {
+                            
+                             @fugitive.caution
+                        }
+                    </h5>
+                </p>
+        
+
+
+                    </div>
+        </div>
+    }
+        <div>
+            <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        </div>
+
 </div>
 

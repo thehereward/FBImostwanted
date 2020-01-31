@@ -4988,14 +4988,15 @@ a.badge:focus {
     padding-top: 48px;
     padding-bottom: 48px;
   }
+  /**/
   .container .jumbotron,
   .container-fluid .jumbotron {
-    padding-right: 60px;
-    padding-left: 60px;
+    padding-right: 0px;
+    padding-left: 0px;
   }
   .jumbotron h1,
   .jumbotron .h1 {
-    font-size: 63px;
+    font-size: 80px;
   }
 }
 .thumbnail {

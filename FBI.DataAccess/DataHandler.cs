@@ -6,6 +6,8 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Collections.Generic;
+using static FBI.DataAccess.MostWantedProfilesModel;
+using Dapper;
 
 namespace FBI.DataAccess
 {
@@ -67,5 +69,24 @@ namespace FBI.DataAccess
             }
 
         }
+        public Root2 GetFromDB()
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+                var queryBuilder = new queryBuilder();
+                var cmd = queryBuilder.Index(con);
+
+                List<Item2> Fugitives = new List<Item2>();
+
+                Root2 root = new Root2() { items = Fugitives };
+                root.items = con.Query<Item2>($"SELECT images, title, caution FROM item").ToList();
+
+                return root;
+            }
+
+        }
+        
+        
     }
 }
