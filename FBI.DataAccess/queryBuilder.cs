@@ -18,7 +18,8 @@ namespace FBI.DataAccess
             }
 
             var str = $@"INSERT INTO item (uid, title,description,images,caution,reward_max,locations,status,nationality,reward_min) 
-                                VALUES (@uid,@title,@description,@images,@caution,@reward_max, @locations,@status,@nationality,@reward_min)";
+                                VALUES (@uid,@title,@description,@images,@caution,@reward_max, @locations,@status,@nationality,@reward_min)
+ON CONFLICT (uid) DO NOTHING";
 
             var dataFormat = new dataFormatHandler();
 

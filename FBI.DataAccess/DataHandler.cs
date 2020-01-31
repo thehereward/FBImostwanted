@@ -5,31 +5,33 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "Host=localhost;Username=postgres;Password=password;Database=FBImostwanted";
+        string cs = "";
 
         public void FillDB()
         {
-
-            var apiHandler = new apiHandler();
-            var root = apiHandler.Root();
-
-            foreach (var fugitive in root.items)
+            for (var i = 1; i <= 50; i++)
             {
-                using (var con = new NpgsqlConnection(cs))
+                var apiHandler = new apiHandler();
+                var root = apiHandler.Root(i);
+
+                foreach (var fugitive in root.items)
                 {
-                    con.Open();
-
-                    var queryBuilder = new queryBuilder();
-                    NpgsqlCommand cmd = queryBuilder.FillCommand(fugitive,con);
-
-                    try
+                    using (var con = new NpgsqlConnection(cs))
                     {
-                        cmd.ExecuteNonQuery();
-                    }
-                    catch
-                    {
-                        //TODO: logging
-                        throw;
+                        con.Open();
+
+                        var queryBuilder = new queryBuilder();
+                        NpgsqlCommand cmd = queryBuilder.FillCommand(fugitive, con);
+
+                        try
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            //TODO: logging
+                            throw;
+                        }
                     }
                 }
             }

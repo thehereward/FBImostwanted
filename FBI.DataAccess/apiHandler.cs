@@ -10,7 +10,7 @@ namespace FBI.DataAccess
     {
         public Root Root(int page)
         {
-            var json = new WebClient().DownloadString("https://api.fbi.gov/@wanted");
+            var json = new WebClient().DownloadString($"https://api.fbi.gov/@wanted?page={page}");
             return JsonConvert.DeserializeObject<Root>(json, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
     }
