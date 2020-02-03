@@ -16,7 +16,7 @@ namespace FBI.Webpage.Models
         public string uid { get; set; }
         public string title { get; set; }
         public string description { get; set; }
-        public List<Image> images { get; set; }
+        public Image[] images { get; set; }
         public string caution { get; set; }
         public int reward_max { get; set; }
         public int reward_min { get; set; }

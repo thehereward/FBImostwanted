@@ -7,13 +7,15 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Collections.Generic;
+using Dapper;
+using static FBI.DataAccess.MostWantedProfilesModel;
 
 namespace FBI.DataAccess
 {
 
     public class DataHandler
     {
-        string cs = "";
+        string cs = "Server=localhost;Port=5432;User Id=ISpy;Password=pass123;Database=ISpy;";
 
         public void FillDB()
         {
@@ -28,7 +30,7 @@ namespace FBI.DataAccess
                     con.Open();
 
                     var queryBuilder = new queryBuilder();
-                    NpgsqlCommand cmd = queryBuilder.FillCommand(fugitive,con);
+                    NpgsqlCommand cmd = queryBuilder.FillCommand(fugitive, con);
 
                     try
                     {
@@ -68,6 +70,41 @@ namespace FBI.DataAccess
                 cmd.ExecuteNonQuery();
                 FillDB();
             }
+
+        }
+
+
+        public Item2 SelctOneRecordRandomly()
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+
+                var querymaker = new queryBuilder();
+                NpgsqlCommand cmd = querymaker.QueryOneRecordRandomly(con);
+
+                List<Item2> itemsBFB = new List<Item2>();
+
+                Root2 root = new Root2() { items = itemsBFB };
+                root.items= (con.Query<Item2>($"SELECT * FROM item ORDER BY random() LIMIT 1").ToList());
+                
+            
+                return root.items[0];
+            }
+        }
+
+        public void UpdateAProfile(Item2 item)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+
+                var querymaker = new queryBuilder();
+                NpgsqlCommand cmd = querymaker.UpdateOneEditedRecord(con, item);
+                cmd.ExecuteNonQuery();
+            }
+
+           
 
         }
     }
