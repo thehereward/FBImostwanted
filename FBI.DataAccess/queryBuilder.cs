@@ -90,6 +90,28 @@ ON CONFLICT (uid) DO NOTHING";
 
         }
 
+        public NpgsqlCommand AddReport(NpgsqlConnection con, ReportModel report)
+        {
+            var str = $"INSERT INTO report (uid, time, date, addr, addrspec, comment )" +
+                $"VALUES (@uid, @time, @date, @addr, @addrspec, @comment)";
+            NpgsqlCommand cmd = new NpgsqlCommand
+            {
+                CommandText = str,
+                Connection = con,
+                Parameters =
+                        {
+                            new NpgsqlParameter() { ParameterName = "uid", Value = report.uid},
+                            new NpgsqlParameter() { ParameterName = "time", Value = report.time},
+                            new NpgsqlParameter() { ParameterName = "date", Value = report.date},
+                            new NpgsqlParameter() { ParameterName = "addr", Value =  report.addr},
+                            new NpgsqlParameter() { ParameterName = "addrspec", Value = report.addrspec},
+                            new NpgsqlParameter() { ParameterName = "comment", Value = report.comment},
+                        }
+            };
+
+            return cmd;
+        }
+
         
 
         public NpgsqlCommand updateCommand(NpgsqlConnection con)

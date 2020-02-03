@@ -14,7 +14,7 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "Host=localhost;Username=postgres;Password=password;Database=FBImostwanted";
+        string cs = "Host=localhost;Username=postgres;Password=;Database=mostWanted";
 
         public void FillDB()
         {
@@ -112,6 +112,25 @@ namespace FBI.DataAccess
                 }
 
                 return root;
+            }
+
+        }
+
+        public void ReportSighting(ReportModel report)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+                var queryBuilder = new queryBuilder();
+                var cmd = queryBuilder.AddReport(con,report);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw;
+                }
             }
 
         }
