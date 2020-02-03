@@ -17,17 +17,18 @@
     {
         <div class="col-md-4">
             <div>
-                <div style="height: 400px; width: 300px;">
+                <div style="height: 400px; width: 300px; overflow:hidden" >
                     <img src="@fugitive.images[0]" style="max-width:100%; height:auto;">
                 </div>
 
-                <div class=>
+                <div class="details_content">
+                
                     <p class="user-link">@Html.ActionLink("ViewProfile", "Edit", "Home", fugitive)</p>
                     <p>
-                     <h4>@fugitive.title</h4>
+                     <h5 style="font-weight:bolder">@fugitive.title</h5>
                     </p>
                     <p>
-                        <h5>
+                        <h6>
                             @if (fugitive.caution != "null")
                             {
                                 @fugitive.caution
@@ -38,7 +39,7 @@
                                 <br />
                             }
 
-                        </h5>
+                        </h6>
                     </p>
 
                 </div>
