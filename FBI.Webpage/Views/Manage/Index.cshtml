@@ -9,7 +9,7 @@
         <p>&nbsp</p>
         <h1>Welcome to the Admin Panel:</h1>
         <img id="nuke-button" src="https://i.ya-webdesign.com/images/nuke-logo-png-11.png" onclick="location.href='@Url.Action("Nuke", "Manage")'" />
-        <input type="button" value="Update Database" onclick="location.href='@Url.Action("UpdateDB", "Manage")'" />
+        <input type="button" value="Update Database" id="update" onclick="location.href='@Url.Action("UpdateDB", "Manage")'; change()" />
         <h3>Add new profiles</h3>
         @using (Html.BeginForm("AddProfile", "Manage"))
         {
@@ -63,3 +63,11 @@
         }
     </div>
 </div>
+
+<script>
+    function change() 
+    {
+        var elem = document.getElementById("update");
+        elem.value = "Updating...";
+    }
+</script>
