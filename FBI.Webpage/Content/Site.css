@@ -24,17 +24,9 @@ textarea {
     max-width: 280px;
 }
 
-.img-container {
-    width: 200px;
-    height: 400px;
-    position: relative;
-    background-size:auto;
-    background-repeat:no-repeat;
-}
-
-.img-container img {
-    width: 100px;
-    height: auto;
+.details_content{
+    height:150px;
+    width:300px;
 }
 
 
