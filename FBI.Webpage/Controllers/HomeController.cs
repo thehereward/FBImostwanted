@@ -24,7 +24,6 @@ namespace FBI.Webpage.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            dataHandler.updateDB();
             var Model = dataHandler.GetFromDB();
             return View(Model);
         }

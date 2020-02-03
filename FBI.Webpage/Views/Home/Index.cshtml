@@ -21,10 +21,13 @@
                 <div class="details_content">
                     <p class="user-link">@Html.ActionLink("ViewProfile", "Edit", "Home", fugitive)</p>
                     <p>
-                     <h5 style="font-weight:bolder">@fugitive.title</h5>
+                     <h4 style="font-weight:bolder">@fugitive.title</h4>
                     </p>
-                    <p>
-                        <h6>
+                   
+                    <p >
+                        <h4 style="color:orangered; font-weight:bolder;">
+                            
+                           
                             @if (fugitive.caution != "null")
                             {
                                 @fugitive.caution
@@ -34,7 +37,8 @@
                                 <br />
                                 <br />
                             }
-                        </h6>
+
+                        </h4>
                     </p>
 
                 </div>
