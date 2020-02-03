@@ -68,21 +68,6 @@
     </div>
 </div>
 
-<div>
-    @foreach(var report in Model.outstandingReports)
-    {
-        <p>Report ID: @report.sid</p>
-        <p>Report Time: @report.time</p>
-        <p>Report Date: @report.date</p>
-        <p>Reported Location: @report.addr</p>
-        <p>Reported Details: @report.addrspec</p>
-        <p>Comments: @report.comment</p>
-        <button> Verify Report</button> <button>Delete Report</button>
-    }
-</div>
-
-
-
 <script>
     function change() 
     {

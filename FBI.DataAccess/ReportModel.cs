@@ -14,5 +14,6 @@ namespace FBI.DataAccess
         public string addr { get; set; }
         public string addrspec { get; set; }
         public string comment { get; set; }
+        public bool verified { get; set; }
     }
 }

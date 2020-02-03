@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FBI.Webpage.Models;
 using FBI.DataAccess;
+using System.Collections.Generic;
 
 namespace FBI.Webpage.Controllers
 {
@@ -63,6 +64,8 @@ namespace FBI.Webpage.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
+            var dataHandler = new DataHandler();
+
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
@@ -71,7 +74,8 @@ namespace FBI.Webpage.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                item = new Item() { }
+                item = new Item() { },
+                outstandingReports = dataHandler.reports()
             };
             return View(model);
         }
@@ -104,6 +108,13 @@ namespace FBI.Webpage.Controllers
         {
             var dataHandler = new DataHandler();
             dataHandler.updateDB();
+            return RedirectToAction("Index", "Manage");
+        }
+
+        public ActionResult verifyReport(int report)
+        {
+            var dataHandler = new DataHandler();
+            dataHandler.approveSighting(report);
             return RedirectToAction("Index", "Manage");
         }
 

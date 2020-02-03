@@ -134,6 +134,36 @@ namespace FBI.DataAccess
             }
 
         }
+
+        public List<ReportModel> reports(int uid)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+                var reports = new List<ReportModel>();
+                reports = con.Query<ReportModel>($"SELECT * FROM sightings WHERE uid = {uid}").ToList();
+
+                return reports;
+            }
+        }
+
+        public void approveSighting(int report)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+                var queryBuilder = new queryBuilder();
+                var cmd = queryBuilder.verifyReport(con, report);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
         
         
     }

@@ -129,6 +129,21 @@ ON CONFLICT (uid) DO NOTHING";
 
         }
 
+        public NpgsqlCommand verifyReport(NpgsqlConnection con, int report)
+        {
+
+            var str = $"UPDATE sightings SET verified = true WHERE sid =  {report} ";
+
+            NpgsqlCommand cmd = new NpgsqlCommand()
+            {
+                CommandText = str,
+                Connection = con
+            };
+
+            return cmd;
+
+        }
+
         public NpgsqlCommand Index(NpgsqlConnection con)
         {
 
