@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -71,7 +70,8 @@ namespace FBI.Webpage.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                item = new Item() { }
             };
             return View(model);
         }
@@ -113,7 +113,13 @@ namespace FBI.Webpage.Controllers
             dataHandler.SelfDestruct();
             return RedirectToAction("Index", "Manage");
         }
-
+       
+        public ActionResult AddProfile(Item item, Image image)
+        {
+            var dataHandler = new DataHandler();
+            dataHandler.addProfile(item, image);
+            return RedirectToAction("Index", "Home");
+        }
         //
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()

@@ -1,33 +1,54 @@
-﻿@model FBI.Webpage.Models.Root
+﻿@model FBI.DataAccess.MostWantedProfilesModel.Root2
+
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Most Wanted";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>FBI Most Wanted</h1>
 </div>
 
-<div class="row">
+
+<div class="main-content">
+
+    @foreach (var fugitive in Model.items)
+    {
+        <div class="col-md-4">
+            <div>
+                <div style="height: 400px; width: 300px; overflow:hidden" >
+                    <img src="@fugitive.images[0]" style="max-width:100%; height:auto;">
+                </div>
+                <div class="details_content">
+                    <p class="user-link">@Html.ActionLink("ViewProfile", "Edit", "Home", fugitive)</p>
+                    <p>
+                     <h4 style="font-weight:bolder">@fugitive.title</h4>
+                    </p>
+                   
+                    <p >
+                        <h4 style="color:orangered; font-weight:bolder;">
+                            
+                           
+                            @if (fugitive.caution != "null")
+                            {
+                                @fugitive.caution
+                            }
+                            @if (fugitive.caution == "null")
+                            {
+                                <br />
+                                <br />
+                            }
+
+                        </h4>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
     </div>
 </div>
+
 

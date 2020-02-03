@@ -1,5 +1,4 @@
-﻿using FBI.Webpage.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Npgsql;
 using System.Linq;
 using System;
@@ -15,33 +14,33 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "Server=localhost;Port=5432;User Id=ISpy;Password=pass123;Database=ISpy;";
+        string cs = "";
 
         public void FillDB()
         {
-
-            var apiHandler = new apiHandler();
-            var root = apiHandler.Root();
-
-            foreach (var fugitive in root.items)
+            for (var i = 1; i <= 50; i++)
             {
-                using (var con = new NpgsqlConnection(cs))
+                var apiHandler = new apiHandler();
+                var root = apiHandler.Root(i);
+
+                foreach (var fugitive in root.items)
                 {
-                    con.Open();
+                    using (var con = new NpgsqlConnection(cs))
+                    {
+                        con.Open();
 
                     var queryBuilder = new queryBuilder();
                     NpgsqlCommand cmd = queryBuilder.FillCommand(fugitive, con);
 
-                    try
-                    {
-
-                        cmd.ExecuteNonQuery();
-
-                    }
-                    catch
-                    {
-                        //TODO: logging
-                        throw;
+                        try
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            //TODO: logging
+                            throw;
+                        }
                     }
                 }
             }
@@ -107,5 +106,53 @@ namespace FBI.DataAccess
            
 
         }
+    }
+}
+
+        public void addProfile(Item item, Image image)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+                var queryBuilder = new queryBuilder();
+                var cmd = queryBuilder.addProfile(item, image, con);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
+        public Root2 GetFromDB()
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+                var queryBuilder = new queryBuilder();
+                var cmd = queryBuilder.Index(con);
+
+                List<Item2> Fugitives = new List<Item2>();
+
+                Root2 root = new Root2() { items = Fugitives };
+                root.items = con.Query<Item2>($"SELECT * FROM item").ToList();
+                Fugitives.OrderBy(attribute => attribute.custom == true);
+                foreach(var item in root.items)
+                {   
+                    
+                    if(item.caution.Contains("SHOULD BE CONSIDERED "))
+                    {
+                        item.caution = item.caution.Remove(0, 21);                     
+                    }
+                }
+
+                return root;
+            }
+
+        }
+        
+        
     }
 }

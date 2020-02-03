@@ -288,6 +288,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="uploads\" />
+    <Folder Include="imgs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -22,12 +22,15 @@ namespace FBI.Webpage.Controllers
         DataHandler dataHandler = new DataHandler();
 
 
+        
+        
+     
+
+        [HttpGet]
         public ActionResult Index()
         {
-            var json = new WebClient().DownloadString("https://api.fbi.gov/@wanted");
-            var roots = JsonConvert.DeserializeObject<Root>(json, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-            return View(roots);
-            
+            var Model = dataHandler.GetFromDB();
+            return View(Model);
         }
 
 

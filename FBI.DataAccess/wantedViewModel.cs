@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace FBI.Webpage.Models
+namespace FBI.DataAccess
 {
     public class Image
     {
@@ -16,8 +16,8 @@ namespace FBI.Webpage.Models
         public string uid { get; set; }
         public string title { get; set; }
         public string description { get; set; }
-        public Image[] images { get; set; }
-        public string caution { get; set; }
+        public List<Image> images { get; set; }
+        public string warning_message { get; set; }
         public int reward_max { get; set; }
         public int reward_min { get; set; }
         public List<string> locations { get; set; }
