@@ -27,7 +27,7 @@ namespace FBI.DataAccess
             public string[] possible_countries { get; set; }
             public string[] possible_states { get; set; }
             public string file { get; set; }
-
+            public bool custom { get; internal set; }
         }
 
         public class Root2

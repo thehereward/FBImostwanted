@@ -109,15 +109,20 @@ ON CONFLICT (uid) DO NOTHING";
         }
 
         //for testing loading and editing profiles only
-        public NpgsqlCommand QueryOneRecordRandomly(NpgsqlConnection con)
+        public NpgsqlCommand QueryOneRecordRandomly(NpgsqlConnection con, string uid)
         {
 
-            var str = $"SELECT * FROM items ORDER BY random() LIMIT 1";
+            var str = $"SELECT * FROM items WHERE uid = @uid";
 
-            NpgsqlCommand cmd = new NpgsqlCommand()
+            NpgsqlCommand cmd = new NpgsqlCommand
             {
                 CommandText = str,
-                Connection = con
+                Connection = con,
+                Parameters =
+                        {
+                            new NpgsqlParameter() { ParameterName = "uid", Value = uid},
+                           
+                        }
             };
 
             return cmd;

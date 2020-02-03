@@ -14,7 +14,7 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "";
+        string cs = "Server=localhost;Port=5432;User Id=ISpy;Password=pass123;Database=ISpy;";
 
         public void FillDB()
         {
@@ -29,8 +29,8 @@ namespace FBI.DataAccess
                     {
                         con.Open();
 
-                    var queryBuilder = new queryBuilder();
-                    NpgsqlCommand cmd = queryBuilder.FillCommand(fugitive, con);
+                        var queryBuilder = new queryBuilder();
+                        NpgsqlCommand cmd = queryBuilder.FillCommand(fugitive, con);
 
                         try
                         {
@@ -73,21 +73,22 @@ namespace FBI.DataAccess
         }
 
 
-        public Item2 SelctOneRecordRandomly()
+        public Item2 SelctOneRecordRandomly(string uid)
         {
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
 
                 var querymaker = new queryBuilder();
-                NpgsqlCommand cmd = querymaker.QueryOneRecordRandomly(con);
+                NpgsqlCommand cmd = querymaker.QueryOneRecordRandomly(con, uid);
 
                 List<Item2> itemsBFB = new List<Item2>();
 
                 Root2 root = new Root2() { items = itemsBFB };
-                root.items= (con.Query<Item2>($"SELECT * FROM item ORDER BY random() LIMIT 1").ToList());
-                
-            
+               // root.items = (con.Query<Item2>("SELECT * FROM item ORDER BY random() LIMIT 1").ToList());
+                root.items = (con.Query<Item2>("SELECT * FROM item where uid = '"+uid+"'").ToList());
+
+
                 return root.items[0];
             }
         }
@@ -103,11 +104,11 @@ namespace FBI.DataAccess
                 cmd.ExecuteNonQuery();
             }
 
-           
+
 
         }
-    }
-}
+
+
 
         public void addProfile(Item item, Image image)
         {
@@ -139,12 +140,12 @@ namespace FBI.DataAccess
                 Root2 root = new Root2() { items = Fugitives };
                 root.items = con.Query<Item2>($"SELECT * FROM item").ToList();
                 Fugitives.OrderBy(attribute => attribute.custom == true);
-                foreach(var item in root.items)
-                {   
-                    
-                    if(item.caution.Contains("SHOULD BE CONSIDERED "))
+                foreach (var item in root.items)
+                {
+
+                    if (item.caution.Contains("SHOULD BE CONSIDERED "))
                     {
-                        item.caution = item.caution.Remove(0, 21);                     
+                        item.caution = item.caution.Remove(0, 21);
                     }
                 }
 
@@ -152,7 +153,8 @@ namespace FBI.DataAccess
             }
 
         }
-        
-        
+
+
     }
 }
+

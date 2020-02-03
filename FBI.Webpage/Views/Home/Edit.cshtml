@@ -77,7 +77,7 @@
                 @Html.TextAreaFor(model => model.nationality)
 
                 @Html.HiddenFor(model => model.reward_max)
-                @Html.HiddenFor(model => model.reward_min)                
+                @Html.HiddenFor(model => model.reward_min)
 
                 for (int i = 0; i < Model.images.Count(); i++)
                 {
@@ -88,7 +88,7 @@
                 {
                     @Html.HiddenFor(model => model.locations[i]);
                 }
-
+                
                 <input type="submit" value="Save Changes" />
 
             }

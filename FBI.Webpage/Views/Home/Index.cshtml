@@ -19,15 +19,21 @@
                     <img src="@fugitive.images[0]" style="max-width:100%; height:auto;">
                 </div>
                 <div class="details_content">
-                    <p class="user-link">@Html.ActionLink("ViewProfile", "Edit", "Home", fugitive)</p>
+                    @*@using (Html.BeginForm("Edit", "Home", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => fugitive.uid)
+
+                        <input class="user-link" type="submit" value="View Profile" />
+                    }*@
+                    <p class="user-link">@Html.ActionLink("ViewProfile", "Edit", "Home", new { uid = fugitive.uid }, null)</p>
                     <p>
-                     <h4 style="font-weight:bolder">@fugitive.title</h4>
+                        <h4 style="font-weight:bolder">@fugitive.title</h4>
                     </p>
-                   
-                    <p >
+
+                    <p>
                         <h4 style="color:orangered; font-weight:bolder;">
-                            
-                           
+
+
                             @if (fugitive.caution != "null")
                             {
                                 @fugitive.caution

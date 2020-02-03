@@ -20,11 +20,11 @@ namespace FBI.Webpage.Controllers
 
 
         DataHandler dataHandler = new DataHandler();
+        Item2 modelToPassAround = new Item2();
+        List<string> imageListToPassAround = new List<string>();
 
 
-        
-        
-     
+
 
         [HttpGet]
         public ActionResult Index()
@@ -33,8 +33,8 @@ namespace FBI.Webpage.Controllers
             return View(Model);
         }
 
-
-        public ActionResult Edit(Item2 model)
+        //[HttpPost]
+        public ActionResult Edit(string uid)
         {
 
             //ViewBag.Message = "MOST WANTED Profile";
@@ -57,11 +57,21 @@ namespace FBI.Webpage.Controllers
             //testMostWantedProfile.images[1] = image2;
             //testMostWantedProfile.status = "na";
             //testMostWantedProfile.uid = "UID NUMBER";
-            
 
 
-            Item2 testMostWantedProfile = dataHandler.SelctOneRecordRandomly();
-            return View(testMostWantedProfile);
+
+          
+            //imageListToPassAround = modelToPassAround.images.ToList();
+            if (User.Identity.IsAuthenticated)
+            {
+                modelToPassAround = dataHandler.SelctOneRecordRandomly(uid);
+                return View(modelToPassAround);
+            }
+            else
+            {
+
+                return RedirectToAction("PostTheEditedProfile", "Home", new { uid });
+            }
         }
 
         public ActionResult Contact()
@@ -70,6 +80,16 @@ namespace FBI.Webpage.Controllers
 
             return View();
         }
+
+        //[HttpPost]
+        public ActionResult PostTheEditedProfile(string uid)
+        {
+            //Item2 testMostWantedProfile = dataHandler.SelctOneRecordRandomly(model.uid);
+            //modelToPassAround.images = imageListToPassAround.ToArray();
+            modelToPassAround = dataHandler.SelctOneRecordRandomly(uid);
+            return View(modelToPassAround);
+        }
+        
 
         [HttpPost]
         [ValidateInput(false)]
