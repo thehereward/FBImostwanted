@@ -102,6 +102,15 @@ namespace FBI.DataAccess
                 Root2 root = new Root2() { items = Fugitives };
                 root.items = con.Query<Item2>($"SELECT * FROM item").ToList();
                 Fugitives.OrderBy(attribute => attribute.custom == true);
+                foreach(var item in root.items)
+                {   
+                    
+                    if(item.caution.Contains("SHOULD BE CONSIDERED "))
+                    {
+                        item.caution = item.caution.Remove(0, 21);                     
+                    }
+                }
+
                 return root;
             }
 
