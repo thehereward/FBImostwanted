@@ -14,7 +14,7 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "Host=localhost;Username=postgres;Password=;Database=mostWanted";
+        string cs = "Host=localhost;Username=postgres;Password=password;Database=FBImostwanted";
 
         public void FillDB()
         {
@@ -101,7 +101,7 @@ namespace FBI.DataAccess
 
                 Root2 root = new Root2() { items = Fugitives };
                 root.items = con.Query<Item2>($"SELECT * FROM item").ToList();
-
+                Fugitives.OrderBy(attribute => attribute.custom == true);
                 return root;
             }
 
