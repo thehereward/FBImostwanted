@@ -72,6 +72,30 @@ ON CONFLICT (uid) DO NOTHING";
 
 
         }
+        /////////////////////////////////////////////////////////////////////////////////////////
+        public NpgsqlCommand SightingReportAdd(SightingReport SightingReport, NpgsqlConnection con)
+        {
+            var dataFormat = new dataFormatHandler();
+            var str = $"INSERT INTO sightings (uid, time, date, addr, addrspect, comment)" +
+                $"VALUES (@uid,@time,@data,@addr,@addrspect,@coment)";
+            NpgsqlCommand cmd = new NpgsqlCommand
+            {
+                CommandText = str,
+                Connection = con,
+                Parameters =
+                        {
+                            new NpgsqlParameter() { ParameterName = "uid", Value = SightingReport.uid},
+                            new NpgsqlParameter() { ParameterName = "time", Value = SightingReport.time},
+                            new NpgsqlParameter() { ParameterName = "date", Value = SightingReport.date},
+                            new NpgsqlParameter() { ParameterName = "addr", Value = SightingReport.addr},
+                            new NpgsqlParameter() { ParameterName = "addrspect", Value = SightingReport.addrspect},
+                            new NpgsqlParameter() { ParameterName = "comment", Value = SightingReport.comment}
+                        }
+            };
+
+            return cmd;
+
+        }
 
         public NpgsqlCommand Nuke(NpgsqlConnection con)
         {
@@ -185,17 +209,16 @@ ON CONFLICT (uid) DO NOTHING";
 
         }
 
-        public NpgsqlCommand Index(NpgsqlConnection con)
+        public NpgsqlCommand GetFromDB(NpgsqlConnection con)
         {
 
-            var str = $"SELECT * FROM item WHERE title = @title";
+            var str = $"SELECT * FROM item";
 
             NpgsqlCommand cmd = new NpgsqlCommand()
             {
                 CommandText = str,
                 Connection = con
             };
-
 
             return cmd;
         }
