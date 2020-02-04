@@ -173,13 +173,13 @@ namespace FBI.DataAccess
 
         }
 
-        public List<ReportModel> reports(int uid)
+        public List<ReportModel> reports(string uid)
         {
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
                 var reports = new List<ReportModel>();
-                reports = con.Query<ReportModel>($"SELECT * FROM sightings WHERE uid = {uid}").ToList();
+                reports = con.Query<ReportModel>($"SELECT * FROM sightings WHERE uid = @uid", new { uid = uid }).ToList();
 
                 return reports;
             }

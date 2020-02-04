@@ -64,8 +64,10 @@ namespace FBI.Webpage.Controllers
             //imageListToPassAround = modelToPassAround.images.ToList();
             if (User.Identity.IsAuthenticated)
             {
-                modelToPassAround = dataHandler.SelctOneRecordRandomly(uid);
-                return View(modelToPassAround);
+                var model = new accountViewModel();
+                model.fugitive = dataHandler.SelctOneRecordRandomly(uid);
+                model.reports = dataHandler.reports(uid);
+                return View(model);
             }
             else
             {
@@ -84,10 +86,10 @@ namespace FBI.Webpage.Controllers
         //[HttpPost]
         public ActionResult PostTheEditedProfile(string uid)
         {
-            //Item2 testMostWantedProfile = dataHandler.SelctOneRecordRandomly(model.uid);
-            //modelToPassAround.images = imageListToPassAround.ToArray();
-            modelToPassAround = dataHandler.SelctOneRecordRandomly(uid);
-            return View(modelToPassAround);
+            var model = new accountViewModel();
+            model.fugitive = dataHandler.SelctOneRecordRandomly(uid);
+            model.reports = dataHandler.reports(uid);
+            return View(model);
         }
         
 
