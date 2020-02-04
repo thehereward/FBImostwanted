@@ -74,8 +74,7 @@ namespace FBI.Webpage.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                item = new Item() { },
-                outstandingReports = dataHandler.reports()
+                item = new Item() { }
             };
             return View(model);
         }
