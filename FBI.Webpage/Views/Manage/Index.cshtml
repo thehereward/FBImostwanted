@@ -9,9 +9,7 @@
         <p>&nbsp</p>
         <h1 id ="head">Welcome to the Admin Panel:</h1>
 
-        <a href="@Url.Action("Nuke", "Manage")" onclick="return confirm('Are you sure you want to nuke the database??')">
-            <img id="nuke-button" src="https://i.ya-webdesign.com/images/nuke-logo-png-11.png" style="height:90px; width:90px; cursor: pointer" />
-        </a>
+        
         
         <input type="button" value="Update Database" id="update" onclick="location.href='@Url.Action("UpdateDB", "Manage")'; change()" />
         <h3>Add new profiles</h3>
@@ -67,6 +65,13 @@
         }
     </div>
 </div>
+<br />
+<div style="border: solid; border-color : red; background-color: rgba(255, 0, 0,.5); border-radius : 15px">
+    <a href="@Url.Action("Nuke", "Manage")" onclick="return confirm('Are you sure you want to nuke the database??')">
+        <img id="nuke-button" src="https://i.ya-webdesign.com/images/nuke-logo-png-11.png" style="height:90px; width:90px; cursor: pointer; position: center" /> <b><u>DELETE THE DATABASE</u></b> 
+    </a>
+</div>
+
 
 <script>
     function change() 

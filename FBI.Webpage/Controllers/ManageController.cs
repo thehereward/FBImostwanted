@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FBI.Webpage.Models;
 using FBI.DataAccess;
+using System.Collections.Generic;
 
 namespace FBI.Webpage.Controllers
 {
@@ -63,6 +64,8 @@ namespace FBI.Webpage.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
+            var dataHandler = new DataHandler();
+
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
@@ -99,21 +102,29 @@ namespace FBI.Webpage.Controllers
             }
             return RedirectToAction("ManageLogins", new { Message = message });
         }
-
+        [Authorize]
         public ActionResult UpdateDB()
         {
             var dataHandler = new DataHandler();
             dataHandler.updateDB();
             return RedirectToAction("Index", "Manage");
         }
+        [Authorize]
+        public ActionResult verifyReport(int report)
+        {
+            var dataHandler = new DataHandler();
+            dataHandler.approveSighting(report);
+            return RedirectToAction("Index", "Manage");
+        }
 
+        [Authorize]
         public ActionResult Nuke()
         {
             var dataHandler = new DataHandler();
             dataHandler.SelfDestruct();
             return RedirectToAction("Index", "Manage");
         }
-       
+        [Authorize]
         public ActionResult AddProfile(Item item, Image image)
         {
             var dataHandler = new DataHandler();
