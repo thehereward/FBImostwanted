@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FBI.DataAccess
 {
-    class dataFormatHandler
+    public class dataFormatHandler
     {
         public string stringIsNull(string input)
         {

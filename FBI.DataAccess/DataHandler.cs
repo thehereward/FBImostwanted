@@ -6,15 +6,15 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Collections.Generic;
-using static FBI.DataAccess.MostWantedProfilesModel;
 using Dapper;
+using static FBI.DataAccess.MostWantedProfilesModel;
 
 namespace FBI.DataAccess
 {
 
     public class DataHandler
     {
-        string cs = "Host=localhost;Username=postgres;Password=;Database=mostWanted";
+        string cs = "";
 
         public void FillDB()
         {
@@ -72,6 +72,44 @@ namespace FBI.DataAccess
 
         }
 
+
+        public Item2 SelctOneRecordRandomly(string uid)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+
+                var querymaker = new queryBuilder();
+                NpgsqlCommand cmd = querymaker.QueryOneRecordRandomly(con, uid);
+
+                List<Item2> itemsBFB = new List<Item2>();
+
+                Root2 root = new Root2() { items = itemsBFB };
+               // root.items = (con.Query<Item2>("SELECT * FROM item ORDER BY random() LIMIT 1").ToList());
+                root.items = (con.Query<Item2>("SELECT * FROM item where uid = '"+uid+"'").ToList());
+
+
+                return root.items[0];
+            }
+        }
+
+        public void UpdateAProfile(Item2 item)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+
+                var querymaker = new queryBuilder();
+                NpgsqlCommand cmd = querymaker.UpdateOneEditedRecord(con, item);
+                cmd.ExecuteNonQuery();
+            }
+
+
+
+        }
+
+
+
         public void addProfile(Item item, Image image)
         {
             using (var con = new NpgsqlConnection(cs))
@@ -102,12 +140,12 @@ namespace FBI.DataAccess
                 Root2 root = new Root2() { items = Fugitives };
                 root.items = con.Query<Item2>($"SELECT * FROM item").ToList();
                 Fugitives.OrderBy(attribute => attribute.custom == true);
-                foreach(var item in root.items)
-                {   
-                    
-                    if(item.caution.Contains("SHOULD BE CONSIDERED "))
+                foreach (var item in root.items)
+                {
+
+                    if (item.caution.Contains("SHOULD BE CONSIDERED "))
                     {
-                        item.caution = item.caution.Remove(0, 21);                     
+                        item.caution = item.caution.Remove(0, 21);
                     }
                 }
 
@@ -168,3 +206,4 @@ namespace FBI.DataAccess
         
     }
 }
+

@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FBI.Webpage", "FBI.Webpage\FBI.Webpage.csproj", "{F4419E21-C643-40A6-8C9B-1D93921ABBB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FBI.DataAccess", "FBI.DataAccess\FBI.DataAccess.csproj", "{4A2776A8-C033-4EF4-A631-C65DC10D505F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FBI.DataAccess", "FBI.DataAccess\FBI.DataAccess.csproj", "{4A2776A8-C033-4EF4-A631-C65DC10D505F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "uploads", "uploads", "{3EDEBEC1-41DD-4DEB-B185-484521CF7862}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
