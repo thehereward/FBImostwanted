@@ -102,17 +102,19 @@
 
     @foreach (var report in Model.reports)
     {
-        if (report.verified == true)
-        {
-            <p>Date: @report.date</p>
-            <p>Time: @report.time</p>
-            <p>Address: @report.addr</p>
-            <p>Address Detals: @report.addrspec</p>
-            <p>Comments: @report.comment</p>
-            <br /><br />
-        }
-    }
 
+        <p>Date: @report.date</p>
+        <p>Time: @report.time</p>
+        <p>Address: @report.addr</p>
+        <p>Address Detals: @report.addrspec</p>
+        <p>Comments: @report.comment</p>
+        <br /><br />
+        if (report.verified == false)
+        {
+            @Html.ActionLink("Test Button", "b", "c")
+        }
+
+    }
 
 
 </div>
