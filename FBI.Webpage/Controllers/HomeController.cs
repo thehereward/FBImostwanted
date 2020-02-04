@@ -33,6 +33,14 @@ namespace FBI.Webpage.Controllers
             return View(Model);
         }
 
+        [Authorize]
+        public ActionResult ApproveReport(int report)
+        {
+            var datahandler = new DataHandler();
+            datahandler.approveSighting(report);
+            return RedirectToAction("Index","Home");
+        }
+
         //[HttpPost]
         public ActionResult Edit(string uid)
         {

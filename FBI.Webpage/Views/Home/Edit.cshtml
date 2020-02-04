@@ -110,7 +110,7 @@
         <p>Comments: @report.comment</p>
         if (report.verified == false)
         {
-        <p>@Html.ActionLink("Verify Report", "b", "c")</p>
+        <p>@Html.ActionLink("Verify Report", "ApproveReport", new {report = report.sid })</p>
         }
         <p>@Html.ActionLink("Delete Report", "b", "c")</p>
         <br /><br />
