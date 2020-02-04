@@ -113,7 +113,22 @@ ON CONFLICT (uid) DO NOTHING";
             return cmd;
         }
 
-        
+        public NpgsqlCommand deleteReport(NpgsqlConnection con, int report)
+        {
+            var str = "DELETE FROM sightings WHERE sid = @sid";
+
+            NpgsqlCommand cmd = new NpgsqlCommand()
+            {
+                CommandText = str,
+                Connection = con,
+                Parameters =
+                {
+                    new NpgsqlParameter() {ParameterName = "sid", Value = report}
+                }
+            };
+
+            return cmd;
+        }
 
         public NpgsqlCommand updateCommand(NpgsqlConnection con)
         {
