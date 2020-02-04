@@ -14,7 +14,7 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "Host=localhost;Username=postgres;Password=;Database=mostWanted";
+        string cs = "";
 
         public void FillDB()
         {
@@ -102,13 +102,13 @@ namespace FBI.DataAccess
                 Root2 root = new Root2() { items = Fugitives };
                 root.items = con.Query<Item2>($"SELECT * FROM item").ToList();
                 Fugitives.OrderBy(attribute => attribute.custom == true);
+
+                var dataformater = new dataFormatHandler();
+
                 foreach(var item in root.items)
-                {   
-                    
-                    if(item.caution.Contains("SHOULD BE CONSIDERED "))
-                    {
-                        item.caution = item.caution.Remove(0, 21);                     
-                    }
+                {
+
+                    item.caution = dataformater.cautionRemove(item.caution);
                 }
 
                 return root;
@@ -141,7 +141,9 @@ namespace FBI.DataAccess
             {
                 con.Open();
                 var reports = new List<ReportModel>();
-                reports = con.Query<ReportModel>($"SELECT * FROM sightings WHERE uid = {uid}").ToList();
+                reports = con.Query<ReportModel>($"SELECT * FROM sightings WHERE uid = @uid", uid).ToList();
+                
+                
 
                 return reports;
             }
@@ -162,6 +164,25 @@ namespace FBI.DataAccess
                 {
                     throw;
                 }
+            }
+        }
+
+        public void DeleteSighting(int report)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+                var queryBuilder = new queryBuilder();
+                var cmd = queryBuilder.deleteReport(con, report);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw;
+                }
+
             }
         }
         

@@ -15,5 +15,15 @@ namespace FBI.DataAccess
 
             return input;
         }
+
+        public string cautionRemove(string input)
+        {
+            if (input.Contains("SHOULD BE CONSIDERED "))
+            {
+                input = input.Remove(0, 21);
+            }
+
+            return input;
+        }
     }
 }

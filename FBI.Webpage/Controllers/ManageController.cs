@@ -74,8 +74,7 @@ namespace FBI.Webpage.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                item = new Item() { },
-                outstandingReports = dataHandler.reports()
+                item = new Item() { }
             };
             return View(model);
         }
@@ -103,14 +102,14 @@ namespace FBI.Webpage.Controllers
             }
             return RedirectToAction("ManageLogins", new { Message = message });
         }
-
+        [Authorize]
         public ActionResult UpdateDB()
         {
             var dataHandler = new DataHandler();
             dataHandler.updateDB();
             return RedirectToAction("Index", "Manage");
         }
-
+        [Authorize]
         public ActionResult verifyReport(int report)
         {
             var dataHandler = new DataHandler();
@@ -118,13 +117,14 @@ namespace FBI.Webpage.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
+        [Authorize]
         public ActionResult Nuke()
         {
             var dataHandler = new DataHandler();
             dataHandler.SelfDestruct();
             return RedirectToAction("Index", "Manage");
         }
-       
+        [Authorize]
         public ActionResult AddProfile(Item item, Image image)
         {
             var dataHandler = new DataHandler();
