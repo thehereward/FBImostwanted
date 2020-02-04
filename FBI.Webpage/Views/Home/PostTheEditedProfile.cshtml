@@ -80,6 +80,32 @@
         </div>
     </div>
 </div>
+<hr />
+
+<h4> Report a sighting</h4>
+@using (Html.BeginForm("test", "twentyone"))
+{
+    <br />
+    <p><strong>Date:</strong></p>
+    @Html.TextBoxFor(model => model.newReport.date)
+    <br />
+    <p><strong>Time:</strong></p>
+    @Html.TextBoxFor(model => model.newReport.time)
+    <br />
+    <p><strong>Location:</strong></p>
+    @Html.TextBoxFor(model => model.newReport.addr)
+    <br />
+    <p><strong>Location Specifics:</strong></p>
+    @Html.TextBoxFor(model => model.newReport.addrspec)
+    <br />
+    <p><strong>Comments:</strong></p>
+    @Html.TextBoxFor(model => model.newReport.comment)
+    <br />
+
+
+}
+<hr />
+
 @foreach (var report in Model.reports)
 {
     if (report.verified == true)
@@ -91,6 +117,7 @@
         <p>Comments: @report.comment</p>
         <br /><br />
     }
+    <hr />
 }
 
 
