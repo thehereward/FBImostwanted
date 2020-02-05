@@ -88,7 +88,7 @@
                 {
                     @Html.HiddenFor(model => model.fugitive.locations[i]);
                 }
-
+                <br />
                 <input type="submit" value="Save Changes" />
 
             }
@@ -102,19 +102,26 @@
 
     @foreach (var report in Model.reports)
     {
-
+        <p><b>Report id: @report.sid</b></p>
         <p>Date: @report.date</p>
         <p>Time: @report.time</p>
         <p>Address: @report.addr</p>
         <p>Address Detals: @report.addrspec</p>
         <p>Comments: @report.comment</p>
+        <p>Verified: @report.verified</p>
         if (report.verified == false)
         {
-        <p>@Html.ActionLink("Verify Report", "ApproveReport", new {report = report.sid })</p>
+            <a href=@Url.Action("ApproveReport", new { report = report.sid, uid = report.uid })> 
+                <button>Verify Report</button>
+            </a>
         }
-        <p>@Html.ActionLink("Delete Report", "b", "c")</p>
+        <a href=@Url.Action("DeleteReport", new { sid = report.sid, uid = report.uid })>
+           <button>Delete Report</button>
+        </a>
+     
         <br /><br />
     }
 
 
+    <hr>
 </div>

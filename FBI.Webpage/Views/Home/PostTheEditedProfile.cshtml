@@ -87,7 +87,7 @@
 <h4> Report a sighting</h4>
 @using (Html.BeginForm("AddReport", "Home", new { uid = Model.fugitive.uid }))
 {
-    
+
     ReportModel report = new ReportModel();
     report.uid = Model.fugitive.uid;
     <br />
@@ -117,6 +117,7 @@
 {
     if (report.verified == true)
     {
+        <p><b>Report id: @report.sid</b></p>
         <p>Date: @report.date</p>
         <p>Time: @report.time</p>
         <p>Address: @report.addr</p>

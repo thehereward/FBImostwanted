@@ -34,11 +34,11 @@ namespace FBI.Webpage.Controllers
         }
 
         [Authorize]
-        public ActionResult ApproveReport(int report)
+        public ActionResult ApproveReport(int report, string uid)
         {
             var datahandler = new DataHandler();
             datahandler.approveSighting(report);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Edit", "Home", new { uid = uid });
         }
 
         public ActionResult AddReport(ReportModel report, string uid)
@@ -46,6 +46,13 @@ namespace FBI.Webpage.Controllers
             var datahandler = new DataHandler();
             datahandler.ReportSighting(report);
             return RedirectToAction("PostTheEditedProfile", "Home", new { uid = uid });
+        }
+
+        public ActionResult DeleteReport(int sid, string uid)
+        {
+            var dataHandler = new DataHandler();
+            dataHandler.DeleteSighting(sid);
+            return RedirectToAction("Edit", "Home", new { uid = uid });
         }
 
         //[HttpPost]
