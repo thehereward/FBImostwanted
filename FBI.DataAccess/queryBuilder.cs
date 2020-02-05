@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Npgsql;
 using static FBI.DataAccess.MostWantedProfilesModel;
@@ -45,20 +46,23 @@ ON CONFLICT (uid) DO NOTHING";
 
             return cmd;
 
-
         }
+
         public NpgsqlCommand addProfile(Item item,Image image, NpgsqlConnection con)
         {
             var dataFormat = new dataFormatHandler();
             var str = $"INSERT INTO item (title, uid, nationality, images, reward_max, description, caution, custom)" +
                 $"VALUES (@title,@uid,@nationality,@images,@reward_max,@description,@caution, true)";
+
+           var uid =  Guid.NewGuid().ToString("N");
+
             NpgsqlCommand cmd = new NpgsqlCommand
             {
                 CommandText = str,
                 Connection = con,
                 Parameters =
                         {   
-                            new NpgsqlParameter() { ParameterName = "uid", Value = item.uid},
+                            new NpgsqlParameter() { ParameterName = "uid", Value = uid},
                             new NpgsqlParameter() { ParameterName = "title", Value = item.title},
                             new NpgsqlParameter() { ParameterName = "description", Value = item.description},
                             new NpgsqlParameter() { ParameterName = "images", Value = new List<string> {image.large } },
@@ -93,7 +97,7 @@ ON CONFLICT (uid) DO NOTHING";
 
         public NpgsqlCommand AddReport(NpgsqlConnection con, ReportModel report)
         {
-            var str = $"INSERT INTO report (uid, time, date, addr, addrspec, comment )" +
+            var str = $"INSERT INTO sightings (uid, time, date, addr, addrspec, comment )" +
                 $"VALUES (@uid, @time, @date, @addr, @addrspec, @comment)";
             NpgsqlCommand cmd = new NpgsqlCommand
             {
@@ -113,7 +117,7 @@ ON CONFLICT (uid) DO NOTHING";
             return cmd;
         }
 
-        public NpgsqlCommand deleteReport(NpgsqlConnection con, int report)
+        public NpgsqlCommand deleteReport(NpgsqlConnection con, int sid)
         {
             var str = "DELETE FROM sightings WHERE sid = @sid";
 
@@ -123,7 +127,7 @@ ON CONFLICT (uid) DO NOTHING";
                 Connection = con,
                 Parameters =
                 {
-                    new NpgsqlParameter() {ParameterName = "sid", Value = report}
+                    new NpgsqlParameter() {ParameterName = "sid", Value = sid}
                 }
             };
 
@@ -145,15 +149,19 @@ ON CONFLICT (uid) DO NOTHING";
 
         }
 
-        public NpgsqlCommand verifyReport(NpgsqlConnection con, int report)
+        public NpgsqlCommand verifyReport(NpgsqlConnection con, int sid)
         {
 
-            var str = $"UPDATE sightings SET verified = true WHERE sid =  {report} ";
+            var str = $"UPDATE sightings SET verified = true WHERE sid =  @sid ";
 
             NpgsqlCommand cmd = new NpgsqlCommand()
             {
                 CommandText = str,
-                Connection = con
+                Connection = con,
+                Parameters =
+                {
+                    new NpgsqlParameter() { ParameterName = "sid", Value = sid}
+                }
             };
 
             return cmd;

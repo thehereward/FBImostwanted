@@ -39,6 +39,28 @@ namespace FBI.Webpage.Controllers
             return View(Model);
         }
 
+        [Authorize]
+        public ActionResult ApproveReport(int report, string uid)
+        {
+            var datahandler = new DataHandler();
+            datahandler.approveSighting(report);
+            return RedirectToAction("Edit", "Home", new { uid = uid });
+        }
+
+        public ActionResult AddReport(ReportModel report, string uid)
+        {
+            var datahandler = new DataHandler();
+            datahandler.ReportSighting(report);
+            return RedirectToAction("PostTheEditedProfile", "Home", new { uid = uid });
+        }
+
+        public ActionResult DeleteReport(int sid, string uid)
+        {
+            var dataHandler = new DataHandler();
+            dataHandler.DeleteSighting(sid);
+            return RedirectToAction("Edit", "Home", new { uid = uid });
+        }
+
         //[HttpPost]
         public ActionResult Edit(string uid)
         {
@@ -70,8 +92,10 @@ namespace FBI.Webpage.Controllers
             //imageListToPassAround = modelToPassAround.images.ToList();
             if (User.Identity.IsAuthenticated)
             {
-                modelToPassAround = dataHandler.SelctOneRecordRandomly(uid);
-                return View(modelToPassAround);
+                var model = new accountViewModel();
+                model.fugitive = dataHandler.SelctOneRecordRandomly(uid);
+                model.reports = dataHandler.reports(uid);
+                return View(model);
             }
             else
             {
@@ -90,10 +114,10 @@ namespace FBI.Webpage.Controllers
         //[HttpPost]
         public ActionResult PostTheEditedProfile(string uid)
         {
-            //Item2 testMostWantedProfile = dataHandler.SelctOneRecordRandomly(model.uid);
-            //modelToPassAround.images = imageListToPassAround.ToArray();
-            modelToPassAround = dataHandler.SelctOneRecordRandomly(uid);
-            return View(modelToPassAround);
+            var model = new accountViewModel();
+            model.fugitive = dataHandler.SelctOneRecordRandomly(uid);
+            model.reports = dataHandler.reports(uid);
+            return View(model);
         }
         
 

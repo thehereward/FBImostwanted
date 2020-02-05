@@ -1,4 +1,5 @@
-﻿@model FBI.DataAccess.MostWantedProfilesModel.Item2
+﻿@model FBI.Webpage.Models.accountViewModel
+@using FBI.DataAccess
 @{
     ViewBag.Title = "Edit A Most Wanted Profile";
 }
@@ -6,105 +7,130 @@
 <h2>@ViewBag.Title.</h2>
 
 @*<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <div class="alert  alert-dismissable">
-        <a class="panel-close close" data-dismiss="alert">×</a>
-        <i class="fa fa-coffee"></i>
-        Profile Updated <strong>Successfully </strong>
-    </div>*@
+    <div>
+        <div class="alert  alert-dismissable">
+            <a class="panel-close close" data-dismiss="alert">×</a>
+            <i class="fa fa-coffee"></i>
+            Profile Updated <strong>Successfully </strong>
+        </div>*@
 
-    <div class="container">
-        <h1>View Profile</h1>
-        <hr>
-        <div class="row">
-            <!-- left column -->
+<div class="container">
+    <h1>View Profile</h1>
+    <hr>
+    <div class="row">
+        <!-- left column -->
 
-            <div class="text-center">
-                @foreach (var image in Model.images)
-                    {
-                        <img src="@image" class="avatar" alt="avatar" height="300">
-                    }
-
-                
-            </div>
+        <div class="text-center">
+            @foreach (var image in Model.fugitive.images)
+            {
+                <img src="@image" class="avatar" alt="avatar" height="300">
+            }
 
 
-            <!-- edit form column -->
-            <div class="personal-info">
-                @{if (Model.caution != null && Model.caution != "null" && Model.caution != "caution" && Model.caution != "")
-                    {
+        </div>
 
-                        <div class="alert alert-danger alert-dismissable">
-                            <a class="panel-close close" data-dismiss="alert">×</a>
-                            <i class="fa fa-coffee"></i>
-                            Caution! <strong>@Model.caution </strong>
-                        </div>
-                    }
-                }
 
-                <h3>Personal info</h3>
-
-                @using (Html.BeginForm("PostTheEditedProfile", "Home", FormMethod.Post))
+        <!-- edit form column -->
+        <div class="personal-info">
+            @{if (Model.fugitive.caution != null && Model.fugitive.caution != "null" && Model.fugitive.caution != "caution" && Model.fugitive.caution != "")
                 {
-                    <br />
-                    <p><strong>Title:</strong></p>
-                    @Html.DisplayFor(m => m.title)
-                    <br />
 
-                    <br />
-                    <p><strong>Description:</strong></p>
-                    @Html.DisplayFor(model => model.description)
-                    <br />
-
-                    <br />
-                    <p><strong>Caution:</strong></p>
-                    @Html.DisplayFor(model => model.caution)
-                    <br />
-
-                    <br />
-                    <p><strong>UID:</strong></p>
-                    @Html.DisplayFor(model => model.uid)
-                    <br />
-
-                    <br />
-                    <p><strong>Status:</strong></p>
-                    @Html.DisplayFor(model => model.status)
-                    <br />
-
-                    <br />
-                    <p><strong>Nationality:</strong></p>
-                    @Html.DisplayFor(model => model.nationality)
-                    <br />
-
-
-                    @*@Html.HiddenFor(model => model.reward_max)
-            @Html.HiddenFor(model => model.reward_min)
-            @Html.HiddenFor(model => model.images[0])
-
-            foreach (var item in Model.images)
-            {
-
-            }
-            for (int i = 0; i < Model.images.Count() - 1; i++)
-            {
-                Html.HiddenFor(modelitem => modelitem.images[i]);
-            }
-
-            for (int i = 0; i < Model.locations.Count() - 1; i++)
-            {
-                Html.HiddenFor(model => model.locations[i]);
-            }
-
-            <input type="submit" value="Save Changes" />*@
-
+                    <div class="alert alert-danger alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <i class="fa fa-coffee"></i>
+                        Caution! <strong>@Model.fugitive.caution </strong>
+                    </div>
                 }
+            }
 
+            <h3>Personal info</h3>
 
+            @using (Html.BeginForm("PostTheEditedProfile", "Home", FormMethod.Post))
+            {
 
-            </div>
+                <br />
+                <p><strong>Title:</strong></p>
+                @Html.DisplayFor(m => m.fugitive.title)
+                <br />
+
+                <br />
+                <p><strong>Description:</strong></p>
+                @Html.DisplayFor(model => model.fugitive.description)
+                <br />
+
+                <br />
+                <p><strong>Caution:</strong></p>
+                @Html.DisplayFor(model => model.fugitive.caution)
+                <br />
+
+                <br />
+                <p><strong>UID:</strong></p>
+                @Html.DisplayFor(model => model.fugitive.uid)
+                <br />
+
+                <br />
+                <p><strong>Status:</strong></p>
+                @Html.DisplayFor(model => model.fugitive.status)
+                <br />
+
+                <br />
+                <p><strong>Nationality:</strong></p>
+                @Html.DisplayFor(model => model.fugitive.nationality)
+                <br />
+            }
+
         </div>
     </div>
-    <hr>
+</div>
+<hr />
+
+<h4> Report a sighting</h4>
+@using (Html.BeginForm("AddReport", "Home", new { uid = Model.fugitive.uid }))
+{
+
+    ReportModel report = new ReportModel();
+    report.uid = Model.fugitive.uid;
+    <br />
+    @Html.HiddenFor(model => report.uid)
+    <p><strong>Date:</strong></p>
+    @Html.TextBoxFor(model => report.date)
+    <br />
+    <p><strong>Time:</strong></p>
+    @Html.TextBoxFor(model => report.time)
+    <br />
+    <p><strong>Location:</strong></p>
+    @Html.TextBoxFor(model => report.addr)
+    <br />
+    <p><strong>Location Specifics:</strong></p>
+    @Html.TextBoxFor(model => report.addrspec)
+    <br />
+    <p><strong>Comments:</strong></p>
+    @Html.TextBoxFor(model => report.comment)
+    <br />
+    <br />
+    <button type="submit">Submit Report</button>
+
+
+}
+<hr />
+
+@foreach (var report in Model.reports)
+{
+    if (report.verified == true)
+    {
+        <p><b>Report id: @report.sid</b></p>
+        <p>Date: @report.date</p>
+        <p>Time: @report.time</p>
+        <p>Address: @report.addr</p>
+        <p>Address Detals: @report.addrspec</p>
+        <p>Comments: @report.comment</p>
+        <br /><br />
+    }
+    <hr />
+}
+
+
+<hr>
 
 
 
