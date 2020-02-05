@@ -109,13 +109,7 @@ namespace FBI.Webpage.Controllers
             dataHandler.updateDB();
             return RedirectToAction("Index", "Manage");
         }
-        [Authorize]
-        public ActionResult verifyReport(int report)
-        {
-            var dataHandler = new DataHandler();
-            dataHandler.approveSighting(report);
-            return RedirectToAction("Index", "Manage");
-        }
+
 
         [Authorize]
         public ActionResult Nuke()
