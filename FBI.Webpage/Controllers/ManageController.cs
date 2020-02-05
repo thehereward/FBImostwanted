@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FBI.Webpage.Models;
 using FBI.DataAccess;
-using System.Collections.Generic;
+using System.Configuration;
 
 namespace FBI.Webpage.Controllers
 {
@@ -17,8 +17,13 @@ namespace FBI.Webpage.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private readonly string connectionString;
+
         public ManageController()
         {
+            var config = ConfigurationManager.AppSettings;
+            var configConnectionString = config.Get("DatabaseConnectionString").ToString();
+            connectionString = configConnectionString;
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -64,7 +69,7 @@ namespace FBI.Webpage.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
-            var dataHandler = new DataHandler();
+            var dataHandler = new DataHandler(connectionString);
 
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
@@ -105,14 +110,14 @@ namespace FBI.Webpage.Controllers
         [Authorize]
         public ActionResult UpdateDB()
         {
-            var dataHandler = new DataHandler();
+            var dataHandler = new DataHandler(connectionString);
             dataHandler.updateDB();
             return RedirectToAction("Index", "Manage");
         }
         [Authorize]
         public ActionResult verifyReport(int report)
         {
-            var dataHandler = new DataHandler();
+            var dataHandler = new DataHandler(connectionString);
             dataHandler.approveSighting(report);
             return RedirectToAction("Index", "Manage");
         }
@@ -120,14 +125,14 @@ namespace FBI.Webpage.Controllers
         [Authorize]
         public ActionResult Nuke()
         {
-            var dataHandler = new DataHandler();
+            var dataHandler = new DataHandler(connectionString);
             dataHandler.SelfDestruct();
             return RedirectToAction("Index", "Manage");
         }
         [Authorize]
         public ActionResult AddProfile(Item item, Image image)
         {
-            var dataHandler = new DataHandler();
+            var dataHandler = new DataHandler(connectionString);
             dataHandler.addProfile(item, image);
             return RedirectToAction("Index", "Home");
         }

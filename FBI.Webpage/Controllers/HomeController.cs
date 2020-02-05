@@ -11,15 +11,21 @@ using Npgsql;
 using static FBI.DataAccess.MostWantedProfilesModel;
 using System.IO;
 using System.Web.Helpers;
+using System.Configuration;
 
 namespace FBI.Webpage.Controllers
 {
     //string cs = "Provider=PostgreSQL OLE DB Provider;Data Source=myServerAddress;location=ISpy;User ID=ISpy;password=pass123;timeout=1000;";
     public class HomeController : Controller
     {
+        public HomeController()
+        {
+            var config = ConfigurationManager.AppSettings;
+            var connectionString = config.Get("DatabaseConnectionString").ToString();
+            dataHandler = new DataHandler(connectionString);
+        }
 
-
-        DataHandler dataHandler = new DataHandler();
+        DataHandler dataHandler;
         Item2 modelToPassAround = new Item2();
         List<string> imageListToPassAround = new List<string>();
 

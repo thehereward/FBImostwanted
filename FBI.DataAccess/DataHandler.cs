@@ -1,10 +1,5 @@
-﻿using Newtonsoft.Json;
-using Npgsql;
+﻿using Npgsql;
 using System.Linq;
-using System;
-using System.IO;
-using System.Net;
-using System.Reflection;
 using System.Collections.Generic;
 using Dapper;
 using static FBI.DataAccess.MostWantedProfilesModel;
@@ -14,7 +9,12 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "";
+        private readonly string cs;
+
+        public DataHandler(string cs)
+        {
+            this.cs = cs;
+        }
 
         public void FillDB()
         {
