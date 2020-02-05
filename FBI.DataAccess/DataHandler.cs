@@ -14,7 +14,7 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "";
+        string cs = "Host=localhost;Username=postgres;Password=password;Database=FBImostwanted;";
 
         public void FillDB()
         {
