@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Npgsql;
 using static FBI.DataAccess.MostWantedProfilesModel;
@@ -45,20 +46,23 @@ ON CONFLICT (uid) DO NOTHING";
 
             return cmd;
 
-
         }
+
         public NpgsqlCommand addProfile(Item item,Image image, NpgsqlConnection con)
         {
             var dataFormat = new dataFormatHandler();
             var str = $"INSERT INTO item (title, uid, nationality, images, reward_max, description, caution, custom)" +
                 $"VALUES (@title,@uid,@nationality,@images,@reward_max,@description,@caution, true)";
+
+           var uid =  Guid.NewGuid().ToString("N");
+
             NpgsqlCommand cmd = new NpgsqlCommand
             {
                 CommandText = str,
                 Connection = con,
                 Parameters =
                         {   
-                            new NpgsqlParameter() { ParameterName = "uid", Value = item.uid},
+                            new NpgsqlParameter() { ParameterName = "uid", Value = uid},
                             new NpgsqlParameter() { ParameterName = "title", Value = item.title},
                             new NpgsqlParameter() { ParameterName = "description", Value = item.description},
                             new NpgsqlParameter() { ParameterName = "images", Value = new List<string> {image.large } },
