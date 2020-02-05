@@ -125,14 +125,11 @@ namespace FBI.DataAccess
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
-                var queryBuilder = new queryBuilder();
-                var cmd = queryBuilder.Index(con);
 
-                List<Item2> Fugitives = new List<Item2>();
-
-                Root2 root = new Root2() { items = Fugitives };
+                Root2 root = new Root2();
                 root.items = con.Query<Item2>($"SELECT * FROM item").ToList();
-                Fugitives.OrderBy(attribute => attribute.custom == true);
+                root.items.OrderBy(attribute => attribute.custom == true);
+
                 foreach (var item in root.items)
                 {
 
