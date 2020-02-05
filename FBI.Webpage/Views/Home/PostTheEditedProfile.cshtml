@@ -1,4 +1,5 @@
 ﻿@model FBI.Webpage.Models.accountViewModel
+@using FBI.DataAccess
 @{
     ViewBag.Title = "Edit A Most Wanted Profile";
 }
@@ -46,6 +47,7 @@
 
             @using (Html.BeginForm("PostTheEditedProfile", "Home", FormMethod.Post))
             {
+
                 <br />
                 <p><strong>Title:</strong></p>
                 @Html.DisplayFor(m => m.fugitive.title)
@@ -83,24 +85,29 @@
 <hr />
 
 <h4> Report a sighting</h4>
-@using (Html.BeginForm("test", "twentyone"))
+@using (Html.BeginForm("AddReport", "Home", new { uid = Model.fugitive.uid }))
 {
+    
+    ReportModel report = new ReportModel();
+    report.uid = Model.fugitive.uid;
     <br />
+    @Html.HiddenFor(model => report.uid)
     <p><strong>Date:</strong></p>
-    @Html.TextBoxFor(model => model.newReport.date)
+    @Html.TextBoxFor(model => report.date)
     <br />
     <p><strong>Time:</strong></p>
-    @Html.TextBoxFor(model => model.newReport.time)
+    @Html.TextBoxFor(model => report.time)
     <br />
     <p><strong>Location:</strong></p>
-    @Html.TextBoxFor(model => model.newReport.addr)
+    @Html.TextBoxFor(model => report.addr)
     <br />
     <p><strong>Location Specifics:</strong></p>
-    @Html.TextBoxFor(model => model.newReport.addrspec)
+    @Html.TextBoxFor(model => report.addrspec)
     <br />
     <p><strong>Comments:</strong></p>
-    @Html.TextBoxFor(model => model.newReport.comment)
+    @Html.TextBoxFor(model => report.comment)
     <br />
+    <button type="submit">Submit Report</button>
 
 
 }

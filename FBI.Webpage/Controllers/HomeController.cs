@@ -41,6 +41,13 @@ namespace FBI.Webpage.Controllers
             return RedirectToAction("Index","Home");
         }
 
+        public ActionResult AddReport(ReportModel report, string uid)
+        {
+            var datahandler = new DataHandler();
+            datahandler.ReportSighting(report);
+            return RedirectToAction("PostTheEditedProfile", "Home", new { uid = uid });
+        }
+
         //[HttpPost]
         public ActionResult Edit(string uid)
         {
