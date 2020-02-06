@@ -6,14 +6,6 @@
 
 <h2>@ViewBag.Title.</h2>
 
-@*<p class="text-success">@ViewBag.StatusMessage</p>
-    <div>
-        <div class="alert  alert-dismissable">
-            <a class="panel-close close" data-dismiss="alert">×</a>
-            <i class="fa fa-coffee"></i>
-            Profile Updated <strong>Successfully </strong>
-        </div>*@
-
 <div class="container">
     <h1>View Profile</h1>
     <hr>
@@ -21,10 +13,10 @@
         <!-- left column -->
 
         <div class="text-center">
-            @foreach (var image in Model.fugitive.images)
-            {
+             @foreach (var image in Model.fugitive.images)
+             {
                 <img src="@image" class="avatar" alt="avatar" height="300">
-            }
+             }
 
 
         </div>
@@ -83,7 +75,7 @@
     </div>
 
 
-    <div style="background-color:#efeded;  height:350px; padding-top:30px; padding-left:50px; padding-right:50px; margin-top:40px; display: block">
+    <div id ="report"style="background-color:#efeded;  height:350px; padding-top:30px; padding-left:50px; padding-right:50px; margin-top:40px; display: block">
         <div style="width:950px; height:50px">
             <h4> <strong>Report a sighting</strong></h4>
         </div>
@@ -101,20 +93,27 @@
                 <br />
                 <p><strong>Time:</strong></p>
                 @Html.TextBoxFor(model => report.time)
-                <br />
+                
             </div>
             <div style="width:300px; height:200px; float:left">
-                <p><strong>Location:</strong></p>
-                @Html.TextBoxFor(model => report.addr)
+                <p><strong>Post/Zip Code:</strong></p>
+                <div id="input">
+                    @Html.TextBoxFor(model => report.addr, new { id = "pc" })
+                    <br /> 
+
+                </div>
+                <button type="button" id="button" onclick="test()">Search Details</button>
                 <br />
-                <p><strong>Location Specifics:</strong></p>
-                @Html.TextBoxFor(model => report.addrspec)
+
+
+                <p><strong>Location Details:</strong></p>
+                @Html.TextAreaFor(model => report.addrspec, new { id = "details", style = "height: 80px" })
                 <br />
 
             </div>
             <div style="width:400px; height:200px; float:left">
                 <p><strong>Comments:</strong></p>
-                @Html.TextAreaFor(model => report.comment)
+                @Html.TextAreaFor(model => report.comment )
                 <br />
                 <button type="submit">Submit Report</button>
             </div>
@@ -150,3 +149,23 @@
 
     </div>
 </div>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script>
+
+    function test() {
+        var tst = $("#pc").val();
+        $.ajax({
+            dataType : "text",
+                url: '@Url.Action("GetLocationDetails","Home")',
+                type: "GET",
+                data: {
+                    loc: tst
+                }
+        }).done(function (result) {
+            var output = result;
+            $("#details").val(output);
+            });
+        }
+
+</script>

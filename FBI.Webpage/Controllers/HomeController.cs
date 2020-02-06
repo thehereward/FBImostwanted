@@ -55,6 +55,15 @@ namespace FBI.Webpage.Controllers
             return RedirectToAction("Edit", "Home", new { uid = uid });
         }
 
+        public string GetLocationDetails(string loc)
+        {
+            var apiKey = new Credentials();
+            var locationFinder = new apiHandler();
+            var result = locationFinder.googleapi(loc, apiKey.ApiKey);
+            string locationDetails = result.predictions[0].description;
+            return locationDetails;
+        }
+
         //[HttpPost]
         public ActionResult Edit(string uid)
         {
@@ -106,11 +115,12 @@ namespace FBI.Webpage.Controllers
         }
 
         //[HttpPost]
-        public ActionResult PostTheEditedProfile(string uid)
+        public ActionResult PostTheEditedProfile(string uid, string details)
         {
             var model = new accountViewModel();
             model.fugitive = dataHandler.SelctOneRecordRandomly(uid);
             model.reports = dataHandler.reports(uid);
+            model.locationDetails = details;
             return View(model);
         }
         

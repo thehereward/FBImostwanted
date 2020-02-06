@@ -95,5 +95,6 @@ namespace FBI.Webpage.Models
         public Item2 fugitive { get; set; }
         public List<ReportModel> reports { get; set; }
         public ReportModel newReport { get; set; }
+        public string locationDetails { get; set; }
     }
 }

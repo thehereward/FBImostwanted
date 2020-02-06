@@ -353,3 +353,4 @@ MigrationBackup/
 
 #apiKey
 keys.Config
+/FBI.DataAccess/Credentials.cs
