@@ -87,9 +87,8 @@
         <div style="width:950px; height:50px">
             <h4> <strong>Report a sighting</strong></h4>
         </div>
-        @using (Html.BeginForm("AddReport", "Home", new { uid = Model.fugitive.uid }))
+        @using (Html.BeginForm("AddReport", "Home", new { uid = Model.fugitive.uid }, FormMethod.Post, new { enctype = "multipart/form-data" } ))
         {
-
             ReportModel report = new ReportModel();
             report.uid = Model.fugitive.uid;
 
@@ -113,9 +112,18 @@
 
             </div>
             <div style="width:400px; height:200px; float:left">
+
                 <p><strong>Comments:</strong></p>
                 @Html.TextAreaFor(model => report.comment)
                 <br />
+                <p><strong>Upload a capture:</strong></p>
+                @Html.LabelFor(model => report.image, new { type = "file" })
+                @Html.EditorFor(model => report.image)
+                <input type="file" name="imageFile" /> 
+                @Html.ValidationMessageFor(model => report.image, "Upload a picture")
+
+                @*<p><strong>Upload a caption:</strong></p>
+        @Html.<input type="file" name="myFile" multiple><br><br>*@
                 <button type="submit">Submit Report</button>
             </div>
         }

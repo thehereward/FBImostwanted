@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -43,11 +44,53 @@ namespace FBI.Webpage.Controllers
 
         public ActionResult AddReport(ReportModel report, string uid)
         {
+            HttpPostedFileBase imageBase = Request.Files[0];
+            using (var reader = new System.IO.BinaryReader(imageBase.InputStream))
+            {
+                report.image = reader.ReadBytes(imageBase.ContentLength);
+            }
             var datahandler = new DataHandler();
             datahandler.ReportSighting(report);
             return RedirectToAction("PostTheEditedProfile", "Home", new { uid = uid });
+
+
+            //WebImage image = new WebImage(imageBase.InputStream);
+            //report.Image = image.GetBytes();
+            //try
+            //{
+            //    if (imageBase.ContentLength > 0)
+            //    {
+            //        string _FileName = Path.GetFileName(imageBase.FileName);
+            //        string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
+            //        file.SaveAs(_path);
+            //    }
+            //    ViewBag.Message = "File Uploaded Successfully!!";
+            //    return View();
+            //}
+            //catch
+            //{
+            //    ViewBag.Message = "File upload failed!!";
+            //    return View();
+            //}
+            //}
+
+
+            //var file = Request.Files["Image"];
+            //if (file != null)
+            //{
+            //    byte[] fileBytes = new byte[file.ContentLength];
+            //    file.InputStream.Read(fileBytes, 0, file.ContentLength);
+
+            //    // ... now fileBytes[] is filled with the contents of the file.
+            //}
+            //else
+            //{
+            //    // ... error handling here
+            //}
+
         }
 
+       
         public ActionResult DeleteReport(int sid, string uid)
         {
             var dataHandler = new DataHandler();

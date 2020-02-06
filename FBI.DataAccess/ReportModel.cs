@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 
 namespace FBI.DataAccess
@@ -15,5 +16,6 @@ namespace FBI.DataAccess
         public string addrspec { get; set; }
         public string comment { get; set; }
         public bool verified { get; set; }
+        public byte[] image { get; set; }
     }
 }

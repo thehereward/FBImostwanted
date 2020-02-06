@@ -121,8 +121,8 @@ ON CONFLICT (uid) DO NOTHING";
 
         public NpgsqlCommand AddReport(NpgsqlConnection con, ReportModel report)
         {
-            var str = $"INSERT INTO sightings (uid, time, date, addr, addrspec, comment )" +
-                $"VALUES (@uid, @time, @date, @addr, @addrspec, @comment)";
+            var str = $"INSERT INTO sightings (uid, time, date, addr, addrspec, comment, image )" +
+                $"VALUES (@uid, @time, @date, @addr, @addrspec, @comment, @image)";
             NpgsqlCommand cmd = new NpgsqlCommand
             {
                 CommandText = str,
@@ -135,6 +135,7 @@ ON CONFLICT (uid) DO NOTHING";
                             new NpgsqlParameter() { ParameterName = "addr", Value =  report.addr},
                             new NpgsqlParameter() { ParameterName = "addrspec", Value = report.addrspec},
                             new NpgsqlParameter() { ParameterName = "comment", Value = report.comment},
+                            new NpgsqlParameter() { ParameterName = "image", Value = report.image},
                         }
             };
 
