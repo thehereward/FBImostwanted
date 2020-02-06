@@ -1,0 +1,28 @@
+﻿@model FBI.DataAccess.SightingReportModel
+
+@using (Html.BeginForm("Search", "Search", FormMethod.Post))
+{
+
+
+
+<div form_container>
+    <p>
+        @Html.TextBoxFor(m => m.time)
+    </p>
+    <p>
+        @Html.TextBoxFor(m => m.date)
+    </p>
+    <p>
+        @Html.TextBoxFor(m => m.addr)
+    </p>
+    <p>
+        @Html.TextBoxFor(m => m.addrspect)
+    </p>
+    <p>
+        @Html.TextBoxFor(m => m.comment)
+    </p>
+</div>
+
+    <input type="submit" value="Report Sighting" />
+
+}
