@@ -16,7 +16,7 @@ namespace FBI.DataAccess
 
         public Location googleapi(string postCode)
         {
-            var json = new WebClient().DownloadString($"https://maps.googleapis.com/maps/api/place/autocomplete/json?input={postCode}&key=AIzaSyBLGsg8An7pmw36PXm6xHtLth700SOSk6Q");
+            var json = new WebClient().DownloadString($"https://maps.googleapis.com/maps/api/place/autocomplete/json?input={postCode}&key=");
             return JsonConvert.DeserializeObject<Location>(json);
         }
     }
