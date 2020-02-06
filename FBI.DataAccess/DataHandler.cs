@@ -69,9 +69,7 @@ namespace FBI.DataAccess
                 cmd.ExecuteNonQuery();
                 FillDB();
             }
-
         }
-
 
         public Item2 SelctOneRecordRandomly(string uid)
         {
@@ -96,12 +94,7 @@ namespace FBI.DataAccess
                 NpgsqlCommand cmd = querymaker.UpdateOneEditedRecord(con, item);
                 cmd.ExecuteNonQuery();
             }
-
-
-
         }
-
-
 
         public void addProfile(Item item, Image image)
         {
@@ -120,6 +113,7 @@ namespace FBI.DataAccess
                 }
             }
         }
+
         public Root2 GetFromDB()
         {
             using (var con = new NpgsqlConnection(cs))
@@ -137,10 +131,8 @@ namespace FBI.DataAccess
                         item.caution = item.caution.Remove(0, 21);
                     }
                 }
-
                 return root;
             }
-
         }
 
         public void ReportSighting(ReportModel report)
@@ -208,7 +200,5 @@ namespace FBI.DataAccess
                 }
             }
         }
-        
-        
     }
 }
