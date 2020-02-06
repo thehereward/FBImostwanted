@@ -15,7 +15,6 @@ using System.Configuration;
 
 namespace FBI.Webpage.Controllers
 {
-    //string cs = "Provider=PostgreSQL OLE DB Provider;Data Source=myServerAddress;location=ISpy;User ID=ISpy;password=pass123;timeout=1000;";
     public class HomeController : Controller
     {
         public HomeController()
@@ -29,9 +28,6 @@ namespace FBI.Webpage.Controllers
         Item2 modelToPassAround = new Item2();
         List<string> imageListToPassAround = new List<string>();
 
-
-
-
         [HttpGet]
         public ActionResult Index()
         {
@@ -39,24 +35,32 @@ namespace FBI.Webpage.Controllers
             return View(Model);
         }
 
+        //[HttpGet] WORK IN PROGRESS - JAMIE.K
+        //public ActionResult ViewSomeInfo()
+        //{
+        //    var connectionString = Environment.GetEnvironmentVariable("DatabaseConnectionString");
+        //    var authString = Environment.GetEnvironmentVariable("AuthenticationConnectionString");
+        //    var Model = new Dictionary<string, string>();
+        //    Model.Add("DatabaseConnectionString", connectionString);
+        //    Model.Add("AuthenticationConnectionString", authString);
+        //    return View(Model);
+        //}
+
         [Authorize]
         public ActionResult ApproveReport(int report, string uid)
         {
-            var datahandler = new DataHandler();
-            datahandler.approveSighting(report);
+            dataHandler.approveSighting(report);
             return RedirectToAction("Edit", "Home", new { uid = uid });
         }
 
         public ActionResult AddReport(ReportModel report, string uid)
         {
-            var datahandler = new DataHandler();
-            datahandler.ReportSighting(report);
+            dataHandler.ReportSighting(report);
             return RedirectToAction("PostTheEditedProfile", "Home", new { uid = uid });
         }
 
         public ActionResult DeleteReport(int sid, string uid)
         {
-            var dataHandler = new DataHandler();
             dataHandler.DeleteSighting(sid);
             return RedirectToAction("Edit", "Home", new { uid = uid });
         }
@@ -211,10 +215,7 @@ namespace FBI.Webpage.Controllers
             Data.status = dataFormat.stringIsNull(Data.status);
             Data.nationality = dataFormat.stringIsNull(Data.nationality);
 
-           
             Data.locations[0] = dataFormat.stringIsNull(Data.locations[0]);
-
-
 
             dataHandler.UpdateAProfile(Data);
             return View(Data);
