@@ -15,8 +15,15 @@
     {
         <div class="col-md-4">
             <div>
-                <div style="height: 400px; width: 300px; overflow:hidden" >
-                    <img src="@fugitive.images[0]" style="max-width:100%; height:auto;">
+                <div style="height: 400px; width: 300px; overflow:hidden">
+                    
+
+                        <a href=@Url.Action("Edit", "Home", new { uid = fugitive.uid }, null)>
+
+                            <img src=@Url.Content(fugitive.images[0]) style="max-width:100%; height:auto;">
+                          
+                        </a>
+                        
                 </div>
                 <div class="details_content">
                     @*@using (Html.BeginForm("Edit", "Home", FormMethod.Post))

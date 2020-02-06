@@ -1,4 +1,5 @@
-﻿@model FBI.DataAccess.MostWantedProfilesModel.Item2
+﻿@model FBI.Webpage.Models.accountViewModel
+
 
 
 <head>
@@ -136,11 +137,32 @@
 
 
 
-
+    @foreach (var report in Model.reports)
+    {
+        <p><b>Report id: @report.sid</b></p>
+        <p>Date: @report.date</p>
+        <p>Time: @report.time</p>
+        <p>Address: @report.addr</p>
+        <p>Address Detals: @report.addrspec</p>
+        <p>Comments: @report.comment</p>
+        <p>Verified: @report.verified</p>
+        if (report.verified == false)
+        {
+            <a href=@Url.Action("ApproveReport", new { report = report.sid, uid = report.uid })> 
+                <button>Verify Report</button>
+            </a>
         }
+        <a href=@Url.Action("DeleteReport", new { sid = report.sid, uid = report.uid })>
+           <button>Delete Report</button>
+        </a>
+     
+        <br /><br />
+    }
 
         </div>
 
+    <hr>
+</div>
     </div>
 
 @*<link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.min.css" />*@

@@ -32,6 +32,31 @@ namespace FBI.Webpage.Controllers
             return View(Model);
         }
 
+        [Authorize]
+        public ActionResult ApproveReport(int report, string uid)
+        {
+            var datahandler = new DataHandler();
+            datahandler.approveSighting(report);
+            return RedirectToAction("Edit", "Home", new { uid = uid });
+        }
+
+        public ActionResult AddReport(ReportModel report, string uid)
+        {
+            var datahandler = new DataHandler();
+            datahandler.ReportSighting(report);
+            return RedirectToAction("PostTheEditedProfile", "Home", new { uid = uid });
+        }
+
+        public ActionResult DeleteReport(int sid, string uid)
+        {
+            var dataHandler = new DataHandler();
+            dataHandler.DeleteSighting(sid);
+            return RedirectToAction("Edit", "Home", new { uid = uid });
+        }
+
+        //[HttpPost]
+        public ActionResult Edit(string uid)
+        {
 
 
         //Shows edit screen when edit button is pressed in profile view
@@ -39,8 +64,9 @@ namespace FBI.Webpage.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                Item2 model = new Item2();
-                model = dataHandler.SelctOneRecord(uid);
+                var model = new accountViewModel();
+                model.fugitive = dataHandler.SelctOneRecord(uid);
+                model.reports = dataHandler.reports(uid);
                 return View(model);
             }
             else
@@ -63,8 +89,9 @@ namespace FBI.Webpage.Controllers
         //shows profile from home screen
         public ActionResult ViewProfile(string uid)
         {
-            Item2 model = new Item2();
-            model = dataHandler.SelctOneRecord(uid);
+            var model = new accountViewModel();
+            model.fugitive = dataHandler.SelctOneRecord(uid);
+            model.reports = dataHandler.reports(uid);
             return View(model);
         }
         
@@ -82,6 +109,7 @@ namespace FBI.Webpage.Controllers
             var dataFormat = new dataFormatHandler();
             if (ModelState.IsValid)
             {
+
 
 
                 //---***vvv FOR FUTURE IMAGE PROCESSING FROM EDIT SCREEN vvv***---{
@@ -117,6 +145,7 @@ namespace FBI.Webpage.Controllers
             Data.description = dataFormat.stringIsNull(Data.description);
             Data.uid = dataFormat.stringIsNull(Data.uid);
             Data.title = dataFormat.stringIsNull(Data.title);
+
             if (Data.locations == null)
             {
                 Data.locations = new string[] { "null" };

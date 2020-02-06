@@ -1,0 +1,55 @@
+﻿@model FBI.DataAccess.ReportModel
+
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Report a sighting</h2>
+
+<div class="personal-info">
+
+
+    @using (Html.BeginForm("Profile", "Report", FormMethod.Post))
+    {
+        <br />
+        <p><strong>Time of the sighting:</strong></p>
+        <p><input type="time" name="time">@Html.DisplayFor(model => model.time)</p>
+        <br />
+
+        <br />
+        <p><strong>Date on which the fugitive was last seen:</strong></p>
+        <p>
+            <input type="date" name="date">
+            @Html.DisplayFor(model => model.date)
+        </p>
+        <br />
+
+        <br />
+        <p><strong>Address where the sighting took place:</strong></p>
+        <p><input type="text" name="addr"></p>
+        @Html.DisplayFor(model => model.addr)
+        <br />
+
+        <br />
+        <p><strong>Address2:</strong></p>
+        <p><input type="text" name="addrspec"></p>
+        @Html.DisplayFor(model => model.addrspec)
+        <br />
+
+        <br />
+        <p><strong>Please, add any comments that could help:</strong></p>
+        <p><input type="text" name="comment"></p>
+        @Html.DisplayFor(model => model.comment)
+        <br />
+        @Html.HiddenFor(model => model.uid)
+
+        <p><input type="submit" value="Report sighting"></p>
+
+    }
+
+
+
+</div>
+
+

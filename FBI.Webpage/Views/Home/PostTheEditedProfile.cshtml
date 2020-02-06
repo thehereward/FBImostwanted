@@ -1,0 +1,152 @@
+﻿@model FBI.Webpage.Models.accountViewModel
+@using FBI.DataAccess
+@{
+    ViewBag.Title = "Edit A Most Wanted Profile";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@*<p class="text-success">@ViewBag.StatusMessage</p>
+    <div>
+        <div class="alert  alert-dismissable">
+            <a class="panel-close close" data-dismiss="alert">×</a>
+            <i class="fa fa-coffee"></i>
+            Profile Updated <strong>Successfully </strong>
+        </div>*@
+
+<div class="container">
+    <h1>View Profile</h1>
+    <hr>
+    <div class="row">
+        <!-- left column -->
+
+        <div class="text-center">
+            @foreach (var image in Model.fugitive.images)
+            {
+                <img src="@image" class="avatar" alt="avatar" height="300">
+            }
+
+
+        </div>
+
+
+        <!-- edit form column -->
+        <div class="personal-info">
+            @{if (Model.fugitive.caution != null && Model.fugitive.caution != "null" && Model.fugitive.caution != "caution" && Model.fugitive.caution != "")
+                {
+
+                    <div class="alert alert-danger alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <i class="fa fa-coffee"></i>
+                        Caution! <strong>@Model.fugitive.caution </strong>
+                    </div>
+                }
+            }
+
+            <h3>Personal info</h3>
+
+            @using (Html.BeginForm("PostTheEditedProfile", "Home", FormMethod.Post))
+            {
+
+                <br />
+                <p><strong>Title:</strong></p>
+                @Html.DisplayFor(m => m.fugitive.title)
+                <br />
+
+                <br />
+                <p><strong>Description:</strong></p>
+                @Html.DisplayFor(model => model.fugitive.description)
+                <br />
+
+                <br />
+                <p><strong>Caution:</strong></p>
+                @Html.DisplayFor(model => model.fugitive.caution)
+                <br />
+
+                <br />
+                <p><strong>UID:</strong></p>
+                @Html.DisplayFor(model => model.fugitive.uid)
+                <br />
+
+                <br />
+                <p><strong>Status:</strong></p>
+                @Html.DisplayFor(model => model.fugitive.status)
+                <br />
+
+                <br />
+                <p><strong>Nationality:</strong></p>
+                @Html.DisplayFor(model => model.fugitive.nationality)
+                <br />
+            }
+
+        </div>
+    </div>
+
+
+    <div style="background-color:#efeded;  height:350px; padding-top:30px; padding-left:50px; padding-right:50px; margin-top:40px; display: block">
+        <div style="width:950px; height:50px">
+            <h4> <strong>Report a sighting</strong></h4>
+        </div>
+        @using (Html.BeginForm("AddReport", "Home", new { uid = Model.fugitive.uid }))
+        {
+
+            ReportModel report = new ReportModel();
+            report.uid = Model.fugitive.uid;
+
+            <div style="width:300px; height:200px; float:left">
+
+                @Html.HiddenFor(model => report.uid)
+                <p><strong>Date:</strong></p>
+                @Html.TextBoxFor(model => report.date)
+                <br />
+                <p><strong>Time:</strong></p>
+                @Html.TextBoxFor(model => report.time)
+                <br />
+            </div>
+            <div style="width:300px; height:200px; float:left">
+                <p><strong>Location:</strong></p>
+                @Html.TextBoxFor(model => report.addr)
+                <br />
+                <p><strong>Location Specifics:</strong></p>
+                @Html.TextBoxFor(model => report.addrspec)
+                <br />
+
+            </div>
+            <div style="width:400px; height:200px; float:left">
+                <p><strong>Comments:</strong></p>
+                @Html.TextAreaFor(model => report.comment)
+                <br />
+                <button type="submit">Submit Report</button>
+            </div>
+        }
+
+    </div>
+
+    <div style="background-color:#efeded;  height:350px; padding-top:30px; padding-left:50px; padding-right:50px; margin-top:40px; display: block">
+
+        <div style="width:950px; height:50px">
+            <h4><strong> Reports of sightings</strong></h4>
+        </div>
+
+        @foreach (var report in Model.reports)
+        {
+            <div style="float:left; width:300px; height:400px">
+                @if (report.verified == true)
+                {
+                    <p><b>Report id: @report.sid</b></p>
+                    <p>Date: @report.date</p>
+                    <p>Time: @report.time</p>
+                    <p>Address: @report.addr</p>
+                    <p>Address Detals: @report.addrspec</p>
+                    <p>Comments: @report.comment</p>
+                    <br /><br />
+                }
+            </div>
+        }
+
+
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>

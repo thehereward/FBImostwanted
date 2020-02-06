@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using FBI.DataAccess;
+using static FBI.DataAccess.MostWantedProfilesModel;
+using Image = FBI.DataAccess.Image;
 
 namespace FBI.Webpage.Models
 {
@@ -86,5 +88,12 @@ namespace FBI.Webpage.Models
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+    }
+
+    public class accountViewModel
+    {
+        public Item2 fugitive { get; set; }
+        public List<ReportModel> reports { get; set; }
+        public ReportModel newReport { get; set; }
     }
 }

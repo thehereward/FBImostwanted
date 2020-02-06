@@ -14,7 +14,7 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "Server=localhost;Port=5432;User Id=ISpy;Password=pass123;Database=ISpy;";
+        string cs = "";
 
         public void FillDB()
         {
@@ -78,15 +78,8 @@ namespace FBI.DataAccess
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
-
-                var querymaker = new queryBuilder();
-                NpgsqlCommand cmd = querymaker.QueryOneRecord(con, uid);
-
-                List<Item2> itemsBFB = new List<Item2>();
-
-                Root2 root = new Root2() { items = itemsBFB };
-              // root.items = (con.Query<Item2>("SELECT * FROM item ORDER BY random() LIMIT 1").ToList());
-                root.items = (con.Query<Item2>("SELECT * FROM item where uid = '"+uid+"'").ToList());
+                Root2 root = new Root2();
+                root.items = (con.Query<Item2>("SELECT * FROM item where uid = @uid", new { uid }).ToList());
 
 
                 return root.items[0];
@@ -132,14 +125,11 @@ namespace FBI.DataAccess
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
-                var queryBuilder = new queryBuilder();
-                var cmd = queryBuilder.Index(con);
 
-                List<Item2> Fugitives = new List<Item2>();
-
-                Root2 root = new Root2() { items = Fugitives };
+                Root2 root = new Root2();
                 root.items = con.Query<Item2>($"SELECT * FROM item").ToList();
-                Fugitives.OrderBy(attribute => attribute.custom == true);
+                root.items.OrderBy(attribute => attribute.custom == true);
+
                 foreach (var item in root.items)
                 {
 
@@ -173,13 +163,13 @@ namespace FBI.DataAccess
 
         }
 
-        public List<ReportModel> reports(int uid)
+        public List<ReportModel> reports(string uid)
         {
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
                 var reports = new List<ReportModel>();
-                reports = con.Query<ReportModel>($"SELECT * FROM sightings WHERE uid = {uid}").ToList();
+                reports = con.Query<ReportModel>($"SELECT * FROM sightings WHERE uid = @uid", new { uid = uid }).ToList();
 
                 return reports;
             }
@@ -192,6 +182,24 @@ namespace FBI.DataAccess
                 con.Open();
                 var queryBuilder = new queryBuilder();
                 var cmd = queryBuilder.verifyReport(con, report);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+        }
+
+        public void DeleteSighting(int sid)
+        {
+            using (var con = new NpgsqlConnection(cs))
+            {
+                con.Open();
+                var queryBuilder = new queryBuilder();
+                var cmd = queryBuilder.deleteReport(con, sid);
                 try
                 {
                     cmd.ExecuteNonQuery();

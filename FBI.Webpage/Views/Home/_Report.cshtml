@@ -1,0 +1,64 @@
+﻿@model FBI.DataAccess.ReportModel
+@{
+    ViewBag.Title = "Report Suspect";
+}
+@Styles.Render("~/Content/css")
+
+<div class="main-content">
+    <div class="col-md-4" style="background-color:aliceblue; width:900px; height:400px">
+
+        @using (Html.BeginForm("Profile", "Report", FormMethod.Post))
+        {
+            <div width="450">
+                <br />
+                <p><strong>Time of the sighting:</strong></p>
+                <p>
+                    <input type="time" name="time">@Html.DisplayFor(model => model.Report.time)
+                </p>
+                <br />
+
+                <br />
+                <p><strong>Date on which the fugitive was last seen:</strong></p>
+                <p>
+                    <input type="date" name="date">
+                    @Html.DisplayFor(model => model.Report.date)
+                </p>
+                <br />
+
+                <br />
+                <p><strong>Address where the sighting took place:</strong></p>
+                <p>
+                    <input type="text" name="addr" size="50">
+                    @Html.DisplayFor(model => model.Report.addr)
+                </p>
+                <br />
+
+                <br />
+                <p><strong>Address2:</strong></p>
+                <p>
+                    <input type="text" name="addrspec">
+                    @Html.DisplayFor(model => model.Report.addrspec)
+                </p>
+                <br />
+            </div>
+
+            <div with="450">
+                <br />
+                <p><strong>Please, add any comments that could help:</strong></p>
+                <p>
+                    <textarea type="text" name="comment" maxlength></textarea>
+                    @Html.DisplayFor(model => model.Report.comment)
+                </p>
+                <br />
+                @Html.HiddenFor(model => model.Report.uid)
+
+                <p><input type="submit" value="Report sighting" style="font-family:inherit"></p>
+            </div>
+
+        }
+
+
+
+    </div>
+
+</div>
