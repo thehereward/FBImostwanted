@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FBI.DataAccess
 {
-    class apiHandler
+    public class apiHandler
     {
         public Root Root(int page)
         {
@@ -14,9 +14,9 @@ namespace FBI.DataAccess
             return JsonConvert.DeserializeObject<Root>(json, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
 
-        public Location googleapi(string postCode)
+        public Location googleapi(string postCode, string key)
         {
-            var json = new WebClient().DownloadString($"https://maps.googleapis.com/maps/api/place/autocomplete/json?input={postCode}&key=AIzaSyBLGsg8An7pmw36PXm6xHtLth700SOSk6Q");
+            var json = new WebClient().DownloadString($"https://maps.googleapis.com/maps/api/place/autocomplete/json?input={postCode}&key={key}");
             return JsonConvert.DeserializeObject<Location>(json);
         }
     }
