@@ -10,7 +10,7 @@ namespace FBI.DataAccess
         {
             if (input == null)
             {
-                return "null";
+                return "";
             }
 
             return input;

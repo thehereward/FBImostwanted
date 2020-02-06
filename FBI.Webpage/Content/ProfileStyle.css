@@ -1,36 +1,166 @@
-﻿.bd {
-    padding-top: 68px;
-    padding-bottom: 50px;
+﻿/* Style the form - display items horizontally */
+.form-inline {
+    display: flex;
+    /*flex-flow: row wrap;*/
+    /*align-items: center;*/
+    vertical-align: central;
 }
 
-.image-container {
-    position: relative;
+    /* Add some margins for each label */
+    .form-inline label {
+        margin: 5px 20px 20px 20px;
+        
+    }
+
+.centeredButton{
+    margin: 0 auto;
 }
 
-.profimage {
-    opacity: 1;
-    display: block;
-    width: 100%;
-    height: auto;
-    transition: .5s ease;
-    backface-visibility: hidden;
+
+.row label {
+    display: inline-block;
 }
 
-.middle {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: center;
+
+    /* Style the input fields */
+    .form-inline input {
+        /*vertical-align: middle;*/
+        margin: 5px 10px 5px 20px;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+    }
+
+
+.formfield * {
+    vertical-align: middle;
+    display: inline-block;
 }
 
-.image-container:hover .profimage {
-    opacity: 0.3;
+
+/* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
+label {
+    width: 80px;
+    display: inline-block;
 }
 
-.image-container:hover .middle {
-    opacity: 1;
+input {
+    vertical-align: middle;
 }
+    /*.form-inline {*/
+    /*flex-direction: column;*/
+    /*align-items: stretch;*/
+
+    /*.extraMargin{
+        display: inline-block;
+    }*/
+
+.display {
+    width: 400px; /* Full width */
+    height: 100px;
+    padding: 12px; /* Some padding */
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin-top: 6px; /* Add a top margin */
+    margin-bottom: 16px; /* Bottom margin */
+    margin: 5px 10px 5px 20px;
+    padding: 10px;
+
+    vertical-align: middle;
+}
+
+
+/*.btn btn-primary {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 90px;
+}*/
+
+
+.display2 {
+    width: 920px; /* Full width */
+    height: 200px;
+    padding: 12px; /* Some padding */
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin-top: 6px; /* Add a top margin */
+    margin-bottom: 16px; /* Bottom margin */
+    margin: 5px 10px 5px 20px;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+input[type=text], select, textarea {
+    width: 800px; /* Full width */
+    height: 100px;
+    padding: 12px; /* Some padding */
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin-top: 6px; /* Add a top margin */
+    margin-bottom: 16px; /* Bottom margin */
+    
+    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+    input[type=text], select, textbox {
+        width: 800px; /* Full width */
+        height: 50px;
+        padding: 12px; /* Some padding */
+        border: 1px solid #ccc; /* Gray border */
+        border-radius: 4px; /* Rounded borders */
+        box-sizing: border-box; /* Make sure that padding and width stays in place */
+        margin-top: 6px; /* Add a top margin */
+        margin-bottom: 16px; /* Bottom margin */
+        resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+    }
+
+.bottom textarea {
+    margin-left: 20px;
+}
+.bottom2 textarea {
+    margin-left: 25px;
+}
+    /* Style the submit button with a specific background color etc */
+    input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 90px;
+    }
+
+        /* When moving the mouse over the submit button, add a darker green color */
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+    /* Add a background color and some padding around the form */
+    .container2 {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+.murderMessage {
+    color: darkred;
+    font-family: 'Agency FB';
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.adminButton {
+    vertical-align: middle;
+    margin: 0 auto;
+    display: inline-block;
+    /* hides the link text */
+}
+
+

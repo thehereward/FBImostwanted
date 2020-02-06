@@ -75,7 +75,7 @@ namespace FBI.Webpage.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
                 item = new Item() { },
-                outstandingReports = dataHandler.reports()
+               // outstandingReports = dataHandler.reports()
             };
             return View(model);
         }
@@ -128,6 +128,7 @@ namespace FBI.Webpage.Controllers
         public ActionResult AddProfile(Item item, Image image)
         {
             var dataHandler = new DataHandler();
+            item.locations= new List<string>{ "quick bugFix TEST STRING to be removed" };
             dataHandler.addProfile(item, image);
             return RedirectToAction("Index", "Home");
         }

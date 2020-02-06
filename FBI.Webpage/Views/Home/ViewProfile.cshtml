@@ -1,0 +1,161 @@
+﻿@model FBI.DataAccess.MostWantedProfilesModel.Item2
+@{
+    ViewBag.Title = "";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="~/assets/ninja-slider.css" rel="stylesheet" />
+
+    <script src="~/assets/ninja-slider.js"></script>
+</head>
+
+@*<p class="text-success">@ViewBag.StatusMessage</p>
+    <div>
+        <div class="alert  alert-dismissable">
+            <a class="panel-close close" data-dismiss="alert">×</a>
+            <i class="fa fa-coffee"></i>
+            Profile Updated <strong>Successfully </strong>
+        </div>*@
+
+@*<div class="container2">*@
+<h1>@Model.title</h1>
+@if(Model.description.Contains("Murder") || Model.description.Contains("Murderer") || Model.description.Contains("Killed") || Model.description.Contains("Murdered") || Model.description.Contains("Murdering") || Model.description.Contains("Killing") || Model.description.Contains("Homicide") || (Model.description.Contains("murder") || Model.description.Contains("murderer") || Model.description.Contains("killed") || Model.description.Contains("murdered") || Model.description.Contains("murdering") || Model.description.Contains("killing") || Model.description.Contains("homicide") && !Model.description.Contains("Murder Victim") && !Model.description.Contains("Homicide Victim") && !Model.description.Contains("murder victim") && !Model.description.Contains("homicide victim")))
+{
+    <p class="murderMessage"> Wanted For Murder </p>
+}
+@*<div class="row">*@
+
+
+<div id="ninja-slider">
+    <div class="inner">
+        <ul>
+            @foreach (var item in Model.images)
+            {
+                <li><a href="/"><img class="ns-img" src=@item style="background-size:auto 200px;"></a></li>
+            }
+
+        </ul>
+    </div>
+</div>
+@*<div id="sliderFrame">
+        <div id="slider">
+            @foreach (var item in Model.images)
+            {
+                <img src=@item alt="pic" height="306" />
+            }
+
+
+
+        </div>
+    </div>*@
+
+@*</div>*@
+<div class="container2">
+    <!-- edit form column -->
+
+    @{if (Model.caution != null && Model.caution != "null" && Model.caution != "caution" && Model.caution != "" && !Model.caution.IsEmpty())
+        {
+
+            <div class="alert alert-danger">
+                <i class="fa fa-coffee"></i>
+                Caution! <strong>@Model.caution </strong>
+            </div>
+        }
+    }
+
+    <h3>Personal info</h3>
+
+    @using (Html.BeginForm("PostTheEditedProfile", "Home", FormMethod.Post))
+    {
+
+        <div class="row">
+
+            @Html.AntiForgeryToken()
+
+            <div class="formfield">
+                <label for="m.title">Title:</label>
+                <div class="display">
+                    @Html.DisplayFor(m => m.title)
+                </div>
+
+
+
+
+                <label for="m.nationality">Nationality:</label>
+                <div class="display">
+                    @Html.DisplayFor(model => model.nationality)
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="formfield">
+
+                @Html.HiddenFor(model => model.uid)
+
+                <label for="m.caution">Warning:</label>
+                <div class="display">
+                    @Html.DisplayFor(model => model.caution)
+                </div>
+
+                <label for="m.Reward">Reward:</label>
+
+                <div class="display"> @Html.DisplayFor(model => model.reward_max)</div>
+
+
+
+
+                @Html.HiddenFor(model => model.status)
+                @Html.HiddenFor(model => model.reward_min)
+
+                @for (int i = 0; i < Model.images.Count(); i++)
+                {
+                    @Html.HiddenFor(model => model.images[i]);
+                }
+
+                @for (int i = 0; i < Model.locations.Count(); i++)
+                {
+                    @Html.HiddenFor(model => model.locations[i]);
+                }
+
+
+            </div>
+
+
+
+
+        </div>
+        <div class="row">
+            <div class="formfield">
+                <label for="m.description">Prosecution:</label>
+                <div class="display2"> @Html.DisplayFor(model => model.description)</div>
+            </div>
+        </div>
+
+
+
+        if (User.Identity.IsAuthenticated)
+        {
+        <div class="adminButton">
+            @*@Html.ActionLink("Edit This Profile", "Edit", "Home", new { uid = Model.uid }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })*@
+            <input type="submit" value="Edit This Profile" formaction="@Url.Action("Edit", new { uid = Model.uid })" />
+        </div>
+                }
+
+                }
+
+            </div>
+
+            @*</div>*@
+            <hr>
+            @*<link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.min.css" />*@
+            @*<link rel="stylesheet" href="~/Content/ProfileStyle.css">*@
+            <!-- Start WOWSlider.com HEAD section -->
+            <link rel="stylesheet" href="~/Content/ProfileStyle.css" />
+            <!-- End WOWSlider.com HEAD section -->

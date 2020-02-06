@@ -22,6 +22,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -35,10 +36,20 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("I Spy", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <a href='@Url.Action("Login", "Account")'>
-                    <img src='@Url.Content("~/Images/FIBLOGO.png")' height="100" width="100">
-                </a>
-            </div>
+
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a href='@Url.Action("Login", "Account")'>
+                        <img src='@Url.Content("~/Images/FIBLOGO.png")' height="100" width="100">
+                    </a>
+                }
+                else
+                {
+                    <a href='@Url.Action("Index", "Home")'>
+                        <img src='@Url.Content("~/Images/FIBLOGO.png")' height="100" width="100">
+                    </a>
+                        }
+                </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 

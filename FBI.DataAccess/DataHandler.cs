@@ -14,7 +14,7 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "";
+        string cs = "Server=localhost;Port=5432;User Id=ISpy;Password=pass123;Database=ISpy;";
 
         public void FillDB()
         {
@@ -73,19 +73,19 @@ namespace FBI.DataAccess
         }
 
 
-        public Item2 SelctOneRecordRandomly(string uid)
+        public Item2 SelctOneRecord(string uid)
         {
             using (var con = new NpgsqlConnection(cs))
             {
                 con.Open();
 
                 var querymaker = new queryBuilder();
-                NpgsqlCommand cmd = querymaker.QueryOneRecordRandomly(con, uid);
+                NpgsqlCommand cmd = querymaker.QueryOneRecord(con, uid);
 
                 List<Item2> itemsBFB = new List<Item2>();
 
                 Root2 root = new Root2() { items = itemsBFB };
-               // root.items = (con.Query<Item2>("SELECT * FROM item ORDER BY random() LIMIT 1").ToList());
+              // root.items = (con.Query<Item2>("SELECT * FROM item ORDER BY random() LIMIT 1").ToList());
                 root.items = (con.Query<Item2>("SELECT * FROM item where uid = '"+uid+"'").ToList());
 
 

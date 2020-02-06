@@ -1,106 +1,147 @@
 ﻿@model FBI.DataAccess.MostWantedProfilesModel.Item2
-@{
-    ViewBag.Title = "Edit A Most Wanted Profile";
-}
 
-<h2>@ViewBag.Title.</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="~/assets/ninja-slider.css" rel="stylesheet" />
+
+    <script src="~/assets/ninja-slider.js"></script>
+</head>
+
+<h2>Edit @Model.title 's Profile</h2>
+
+@*<p class="text-success">@ViewBag.StatusMessage</p>*@
 <div>
     <h4>You can Edit the details for this Most Wanted Profile below.</h4>
 
-    <div class="container">
-        <h1>Edit Profile</h1>
-        <hr>
-        <div class="row">
-            <!-- left column -->
-            
-            <div class="text-center">
-                @foreach (var image in Model.images)
-                {
-                    <img src="@image" class="avatar" alt="avatar" height="300">
-                }
+    <div class="container2">
 
+
+        <div id="ninja-slider">
+            <div class="inner">
+                <ul>
+                    @foreach (var item in Model.images)
+                    {
+                        <li><a href="/"><img class="ns-img" src=@item style="background-size:auto 200px;"></a></li>
+                    }
+
+                </ul>
+            </div>
+        </div>
 
 
 
                 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
                 <script src="~/Scripts/jquery.validate.min.js"></script>
                 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-            </div>
-         
+           
+        
+        <hr>
+        <div class="form-inline">
+       
 
             <!-- edit form column -->
             <div class="personal-info">
-                @{if (Model.caution != null || Model.caution != "null" || Model.caution.IsEmpty())
+                @if (Model.caution != null && Model.caution != "null" && !Model.caution.IsEmpty() && Model.caution != "" && Model.caution != "caution")
                     {
 
                         <div class="alert alert-danger alert-dismissable">
-                            <a class="panel-close close" data-dismiss="alert">×</a>
-                            <i class="fa fa-coffee"></i>
-                            Caution! <strong>@Model.caution </strong>
+
+                        <i class="fa fa-coffee"></i>
+                        Caution! <strong>@Model.caution </strong>
                         </div>
-                    }
-                }
 
-                <h3>Personal info</h3>
+                     }
 
-                @using (Html.BeginForm("PostTheEditedProfile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {@Html.AntiForgeryToken()
+             </div>
 
-                <div class="form-horizontal">
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.file, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
-                            @Html.ValidationMessageFor(model => model.file, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+        </div>
 
+        <div class="row">
+        <h3>Personal info</h3>
+        </div>
 
-
-
+        @*<div class="row">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <p>Upload a New Image for This Profile:</p>
+            <div class="form-group">
+                @Html.LabelFor(model => model.file, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                    @Html.ValidationMessageFor(model => model.file, "", new { @class = "text-danger" })
                 </div>
-                <p>Title:</p>
-                @Html.TextAreaFor(m => m.title)
-                <p>Description:</p>
-                @Html.TextAreaFor(model => model.description)
-                <p>Caution:</p>
-                @Html.TextAreaFor(model => model.caution)
-                <p>UID:</p>
-                @Html.TextAreaFor(model => model.uid)
-                <p>Status:</p>
-                @Html.TextAreaFor(model => model.status)
-                <p>Nationality:</p>
-                @Html.TextAreaFor(model => model.nationality)
+            </div>
 
-                @Html.HiddenFor(model => model.reward_max)
+        </div>*@
+
+        @using (Html.BeginForm("ViewProfile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+        <div class="row">
+
+            @Html.AntiForgeryToken()
+
+            <p class="formfield">
+                <label for="m.title">Title:</label>
+                @Html.TextBoxFor(m => m.title)
+
+
+               
+
+                <label for="m.nationality">Nationality:</label>
+                @Html.TextBoxFor(model => model.nationality)
+
+                <label for="m.status">Reward:</label>
+                @Html.TextBoxFor(model => model.reward_max)
+
+            </p>
+
+        </div>
+            
+        <div class="row">
+            <p class="formfield">
+
+                @Html.HiddenFor(model => model.uid)
+
+                <label for="m.caution">Warning:</label>
+                @Html.TextAreaFor(model => model.caution)
+
+                <label for="m.description">Prosecution:</label>
+                @Html.TextAreaFor(model => model.description)
+
+
+                @Html.HiddenFor(model => model.status)
                 @Html.HiddenFor(model => model.reward_min)
 
-                for (int i = 0; i < Model.images.Count(); i++)
+                @for (int i = 0; i < Model.images.Count(); i++)
                 {
                     @Html.HiddenFor(model => model.images[i]);
                 }
 
-                for (int i = 0; i < Model.locations.Count(); i++)
+                @for (int i = 0; i < Model.locations.Count(); i++)
                 {
                     @Html.HiddenFor(model => model.locations[i]);
                 }
-                
+
                 <input type="submit" value="Save Changes" />
-
-            }
-
+            </p>
 
 
-            </div>
+
+
         </div>
+
+
+
+
+
+        }
+
+        </div>
+
     </div>
-    <hr>
 
-
-
-
-</div>
+@*<link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.min.css" />*@
+<link rel="stylesheet" href="~/Content/ProfileStyle.css" />

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Npgsql;
 using static FBI.DataAccess.MostWantedProfilesModel;
@@ -48,23 +49,26 @@ ON CONFLICT (uid) DO NOTHING";
 
         }
         public NpgsqlCommand addProfile(Item item,Image image, NpgsqlConnection con)
-        {
+        { 
+            string customUidToAdd = Guid.NewGuid().ToString(); 
+        
             var dataFormat = new dataFormatHandler();
-            var str = $"INSERT INTO item (title, uid, nationality, images, reward_max, description, caution, custom)" +
-                $"VALUES (@title,@uid,@nationality,@images,@reward_max,@description,@caution, true)";
+            var str = $"INSERT INTO item (title, uid, nationality, locations, images, reward_max, description, caution, custom)" +
+                $"VALUES (@title,@uid,@nationality,@locations,@images,@reward_max,@description,@caution, true)";
             NpgsqlCommand cmd = new NpgsqlCommand
             {
                 CommandText = str,
                 Connection = con,
                 Parameters =
-                        {   
-                            new NpgsqlParameter() { ParameterName = "uid", Value = item.uid},
+                        {
+                            new NpgsqlParameter() { ParameterName = "uid", Value = customUidToAdd},
                             new NpgsqlParameter() { ParameterName = "title", Value = item.title},
                             new NpgsqlParameter() { ParameterName = "description", Value = item.description},
                             new NpgsqlParameter() { ParameterName = "images", Value = new List<string> {image.large } },
                             new NpgsqlParameter() { ParameterName = "caution", Value = dataFormat.stringIsNull(item.warning_message)},
                             new NpgsqlParameter() { ParameterName = "reward_max", Value = item.reward_max},
-                            new NpgsqlParameter() { ParameterName = "nationality", Value = dataFormat.stringIsNull(item.nationality)}
+                            new NpgsqlParameter() { ParameterName = "nationality", Value = dataFormat.stringIsNull(item.nationality)},
+                             new NpgsqlParameter() { ParameterName = "locations", Value = item.locations.ToList()}
                         }
             };
 
@@ -145,8 +149,8 @@ ON CONFLICT (uid) DO NOTHING";
 
         }
 
-        //for testing loading and editing profiles only
-        public NpgsqlCommand QueryOneRecordRandomly(NpgsqlConnection con, string uid)
+ 
+        public NpgsqlCommand QueryOneRecord(NpgsqlConnection con, string uid)
         {
 
             var str = $"SELECT * FROM items WHERE uid = @uid";

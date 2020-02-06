@@ -209,6 +209,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\bullet.png" />
+    <Content Include="assets\js-image-slider.css" />
+    <Content Include="assets\js-image-slider.js" />
+    <Content Include="assets\ninja-slider.css" />
+    <Content Include="assets\ninja-slider.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -282,13 +287,13 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
-    <Content Include="Views\Home\PostTheEditedProfile.cshtml" />
+    <Content Include="Views\Home\ViewProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="imgs\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="uploads\" />
-    <Folder Include="imgs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

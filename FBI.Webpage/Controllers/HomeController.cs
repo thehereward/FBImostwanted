@@ -20,8 +20,7 @@ namespace FBI.Webpage.Controllers
 
 
         DataHandler dataHandler = new DataHandler();
-        Item2 modelToPassAround = new Item2();
-        List<string> imageListToPassAround = new List<string>();
+
 
 
 
@@ -33,46 +32,25 @@ namespace FBI.Webpage.Controllers
             return View(Model);
         }
 
-        //[HttpPost]
+
+
+        //Shows edit screen when edit button is pressed in profile view
         public ActionResult Edit(string uid)
         {
-
-            //ViewBag.Message = "MOST WANTED Profile";
-            //// Item singleProfile = root.items[index];
-            //var testMostWantedProfile = new Item();
-            //testMostWantedProfile.description = "THE TITLE of MOST wanted PERson";
-            //testMostWantedProfile.description = "this is a DESCRIPTION of a most wanted person";
-            //testMostWantedProfile.caution = "this is a CAUTION for this most wanted person";
-            //var image1 = new Image();
-            //var image2= new Image();
-
-            //image1.large = "https://pncguam.com/wp-content/uploads/2013/07/michael%20tony.jpg";
-
-            //image2.large = "https://kuam.images.worldnow.com/images/18564862_G.jpeg?auto=webp&disable=upscale&height=560&fit=bounds&lastEditedDate=1562204300000";
-            //List<Image> ImageList = new List<Image>(new Image[] { image1, image2 });
-
-            //testMostWantedProfile.images = ImageList;
-
-            //testMostWantedProfile.nationality = "this is a NATIONALITY of a most wanted person";
-            //testMostWantedProfile.images[1] = image2;
-            //testMostWantedProfile.status = "na";
-            //testMostWantedProfile.uid = "UID NUMBER";
-
-
-
-          
-            //imageListToPassAround = modelToPassAround.images.ToList();
             if (User.Identity.IsAuthenticated)
             {
-                modelToPassAround = dataHandler.SelctOneRecordRandomly(uid);
-                return View(modelToPassAround);
+                Item2 model = new Item2();
+                model = dataHandler.SelctOneRecord(uid);
+                return View(model);
             }
             else
             {
 
-                return RedirectToAction("PostTheEditedProfile", "Home", new { uid });
+                return RedirectToAction("ViewProfile", "Home", new { uid });
             }
         }
+
+
 
         public ActionResult Contact()
         {
@@ -81,19 +59,19 @@ namespace FBI.Webpage.Controllers
             return View();
         }
 
-        //[HttpPost]
-        public ActionResult PostTheEditedProfile(string uid)
+
+        //shows profile from home screen
+        public ActionResult ViewProfile(string uid)
         {
-            //Item2 testMostWantedProfile = dataHandler.SelctOneRecordRandomly(model.uid);
-            //modelToPassAround.images = imageListToPassAround.ToArray();
-            modelToPassAround = dataHandler.SelctOneRecordRandomly(uid);
-            return View(modelToPassAround);
+            Item2 model = new Item2();
+            model = dataHandler.SelctOneRecord(uid);
+            return View(model);
         }
         
-
+        //shows profile after clicking submit button on Edit a Profile Screen
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult PostTheEditedProfile (Item2 form, HttpPostedFileBase file)
+        public ActionResult ViewProfile(Item2 form, HttpPostedFileBase file)
         {
             string imagePath2 = "";
             WebImage photo = null;
@@ -104,88 +82,54 @@ namespace FBI.Webpage.Controllers
             var dataFormat = new dataFormatHandler();
             if (ModelState.IsValid)
             {
-                //try
-                //{
 
 
-                    if (file != null)
+                //---***vvv FOR FUTURE IMAGE PROCESSING FROM EDIT SCREEN vvv***---{
+                if (file != null)
+                {
+                    photo = WebImage.GetImageFromRequest();
+                    if (photo != null)
                     {
-
-                        photo = WebImage.GetImageFromRequest();
-                        if (photo != null)
-                        {
-                            newFileName = Guid.NewGuid().ToString() + "_" +
-                                Path.GetFileName(photo.FileName);
-                            imagePath = @"~/uploads/" + newFileName;
-
-                            //string imagePath = @"images\" + photo.FileName;
-                            //photo.Save(@"~\" + imagePath);
-                            imagePath2= Server.MapPath(imagePath);
-                        }
-                            //Extract Image File Name.
-                            //string fileName = System.IO.Path.GetFileName(file.FileName);
-
-                            ////Set the Image File Path.
-                            //string filePath = Path.Combine("~/UploadedFiles/", fileName); /*"~/UploadedFiles/" + fileName;*/
-
-                            ////Save the Image File in Folder.
-                        //file.SaveAs(Server.MapPath(imagePath2));
-                        file.SaveAs(Server.MapPath(imagePath));
-                        //Insert the Image File details in Table.
-                        //FilesEntities entities = new FilesEntities();
-                        //entities.Files.Add(new File
-                        //{
-                        //    Name = fileName,
-                        //    Path = filePath
-                        //});
-                        //entities.SaveChanges();
-
-
-
-
-                        List<string> tempImages = Data.images.ToList();
-                        tempImages.Add(imagePath);
-                        tempImages.Add(imagePath2);
-                        Data.images = tempImages.ToArray();
-                       
-
+                        newFileName = Guid.NewGuid().ToString() + "_" +
+                            Path.GetFileName(photo.FileName);
+                        imagePath = @"~/uploads/" + newFileName;
+                        imagePath2 = Server.MapPath(imagePath);
                     }
-                    else
-                    {
-                        Data.file = dataFormat.stringIsNull(Data.file);
-                        Data.images[0] = dataFormat.stringIsNull(Data.images[0]);
-                    }
-                    ViewBag.FileStatus = "File uploaded successfully.";
-                //}
-                //catch (Exception)
-                //{
 
-                //    ViewBag.FileStatus = "Error while file uploading.";
-                //}
+                    file.SaveAs(Server.MapPath(imagePath));
+                    List<string> tempImages = Data.images.ToList();
+                    tempImages.Add(imagePath);
+                    tempImages.Add(imagePath2);
+                    Data.images = tempImages.ToArray();
+                }
+                else
+                {
+                    Data.file = dataFormat.stringIsNull(Data.file);
+                    Data.images[0] = dataFormat.stringIsNull(Data.images[0]);
+                }
+                ViewBag.FileStatus = "File uploaded successfully.";
+                //}---***^^^ FOR FUTURE IMAGE PROCESSING FROM EDIT SCREEN ^^***---
 
             }
-            
+
+            //Formats Data to prevent nulls before sending to data handler (probably could be moved to data handler in future):
             Data.caution = dataFormat.stringIsNull(Data.caution);
             Data.description = dataFormat.stringIsNull(Data.description);
             Data.uid = dataFormat.stringIsNull(Data.uid);
             Data.title = dataFormat.stringIsNull(Data.title);
-            //if (Data.reward_max = null)
-            //{
-            //    Data.reward_max = 0;
-            //}
             if (Data.locations == null)
             {
                 Data.locations = new string[] { "null" };
             }
-
+            if (Data.locations[0] == null)
+            {
+                Data.locations[0] = dataFormat.stringIsNull(Data.locations[0]);
+            }
             Data.status = dataFormat.stringIsNull(Data.status);
             Data.nationality = dataFormat.stringIsNull(Data.nationality);
 
-           
-            Data.locations[0] = dataFormat.stringIsNull(Data.locations[0]);
 
-
-
+            //Send the data to datahandler for updating the profile
             dataHandler.UpdateAProfile(Data);
             return View(Data);
             

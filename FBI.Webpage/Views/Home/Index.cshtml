@@ -25,7 +25,7 @@
 
                         <input class="user-link" type="submit" value="View Profile" />
                     }*@
-                    <p class="user-link">@Html.ActionLink("ViewProfile", "Edit", "Home", new { uid = fugitive.uid }, null)</p>
+                    <p class="user-link">@Html.ActionLink("ViewProfile", "ViewProfile", "Home", new { uid = fugitive.uid }, null)</p>
                     <p>
                         <h4 style="font-weight:bolder">@fugitive.title</h4>
                     </p>
