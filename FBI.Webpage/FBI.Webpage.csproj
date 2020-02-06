@@ -232,6 +232,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Images\fav\site.webmanifest" />
+    <Content Include="keys.Config" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -288,9 +289,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="imgs\" />
     <Folder Include="UploadedFiles\" />
     <Folder Include="uploads\" />
-    <Folder Include="imgs\" />
     <Folder Include="Views\SightingReport\" />
   </ItemGroup>
   <ItemGroup>

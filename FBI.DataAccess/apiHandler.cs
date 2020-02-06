@@ -14,9 +14,9 @@ namespace FBI.DataAccess
             return JsonConvert.DeserializeObject<Root>(json, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
 
-        public Location googleapi(string postCode)
+        public Location googleapi(string postCode, string key)
         {
-            var json = new WebClient().DownloadString($"https://maps.googleapis.com/maps/api/place/autocomplete/json?input={postCode}&key=");
+            var json = new WebClient().DownloadString($"https://maps.googleapis.com/maps/api/place/autocomplete/json?input={postCode}&key={Key}");
             return JsonConvert.DeserializeObject<Location>(json);
         }
     }

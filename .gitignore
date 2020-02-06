@@ -49,6 +49,7 @@ Generated\ Files/
 TestResult.xml
 nunit-*.xml
 
+
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/
@@ -349,3 +350,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+#apiKey
+keys.Config
