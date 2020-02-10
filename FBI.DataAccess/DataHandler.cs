@@ -1,10 +1,5 @@
-﻿using Newtonsoft.Json;
-using Npgsql;
+﻿using Npgsql;
 using System.Linq;
-using System;
-using System.IO;
-using System.Net;
-using System.Reflection;
 using System.Collections.Generic;
 using Dapper;
 using static FBI.DataAccess.MostWantedProfilesModel;
@@ -14,7 +9,12 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "Host=localhost;Username=postgres;Password=Password0512!;Database=mostWanted";
+        private readonly string cs;
+
+        public DataHandler(string cs)
+        {
+            this.cs = cs;
+        }
 
         public void FillDB()
         {
@@ -69,9 +69,7 @@ namespace FBI.DataAccess
                 cmd.ExecuteNonQuery();
                 FillDB();
             }
-
         }
-
 
         public Item2 SelctOneRecordRandomly(string uid)
         {
@@ -96,12 +94,7 @@ namespace FBI.DataAccess
                 NpgsqlCommand cmd = querymaker.UpdateOneEditedRecord(con, item);
                 cmd.ExecuteNonQuery();
             }
-
-
-
         }
-
-
 
         public void addProfile(Item item, Image image)
         {
@@ -120,6 +113,7 @@ namespace FBI.DataAccess
                 }
             }
         }
+
         public Root2 GetFromDB()
         {
             using (var con = new NpgsqlConnection(cs))
@@ -132,16 +126,13 @@ namespace FBI.DataAccess
 
                 foreach (var item in root.items)
                 {
-
-                    if (item.caution.Contains("SHOULD BE CONSIDERED "))
+                    if(item.caution.Contains("SHOULD BE CONSIDERED "))
                     {
                         item.caution = item.caution.Remove(0, 21);
                     }
                 }
-
                 return root;
             }
-
         }
 
         public void ReportSighting(ReportModel report)
@@ -160,7 +151,6 @@ namespace FBI.DataAccess
                     throw;
                 }
             }
-
         }
 
         public List<ReportModel> reports(string uid)
@@ -210,8 +200,5 @@ namespace FBI.DataAccess
                 }
             }
         }
-        
-        
     }
 }
-

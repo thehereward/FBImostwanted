@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Configuration;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -20,14 +21,16 @@ namespace FBI.Webpage.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public ApplicationDbContext(string connectionString)
+            : base(connectionString, throwIfV1Schema: false)
         {
         }
 
         public static ApplicationDbContext Create()
         {
-            return new ApplicationDbContext();
+            var config = ConfigurationManager.AppSettings;
+            var configValue = config.Get("AuthenticationConnectionString");
+            return new ApplicationDbContext(configValue);
         }
     }
 }
