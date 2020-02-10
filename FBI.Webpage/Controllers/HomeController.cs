@@ -54,9 +54,7 @@ namespace FBI.Webpage.Controllers
             return RedirectToAction("Edit", "Home", new { uid = uid });
         }
 
-        //[HttpPost]
-        public ActionResult Edit(string uid)
-        {
+       
 
 
         //Shows edit screen when edit button is pressed in profile view

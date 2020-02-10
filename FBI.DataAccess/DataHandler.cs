@@ -14,7 +14,7 @@ namespace FBI.DataAccess
 
     public class DataHandler
     {
-        string cs = "";
+        string cs = "Server=localhost;Port=5432;User Id=ISpy;Password=pass123;Database=ISpy;";
 
         public void FillDB()
         {

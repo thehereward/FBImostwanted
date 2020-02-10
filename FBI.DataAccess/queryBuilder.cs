@@ -53,17 +53,20 @@ ON CONFLICT (uid) DO NOTHING";
             string customUidToAdd = Guid.NewGuid().ToString(); 
         
             var dataFormat = new dataFormatHandler();
-            var str = $"INSERT INTO item (title, uid, nationality, images, reward_max, description, caution, custom)" +
-                $"VALUES (@title,@uid,@nationality,@images,@reward_max,@description,@caution, true)";
+
+            var str = $"INSERT INTO item (title, uid, nationality, locations, images, reward_max, description, caution, custom)" +
+                $"VALUES (@title,@uid,@nationality,@locations,@images,@reward_max,@description,@caution, true)";
+
+
 
            var uid =  Guid.NewGuid().ToString("N");
+
 
             NpgsqlCommand cmd = new NpgsqlCommand
             {
                 CommandText = str,
                 Connection = con,
-                Parameters =
-                        {
+                Parameters ={
                             new NpgsqlParameter() { ParameterName = "uid", Value = customUidToAdd},
                             new NpgsqlParameter() { ParameterName = "title", Value = item.title},
                             new NpgsqlParameter() { ParameterName = "description", Value = item.description},
@@ -79,7 +82,7 @@ ON CONFLICT (uid) DO NOTHING";
 
 
         }
-        /////////////////////////////////////////////////////////////////////////////////////////
+
         public NpgsqlCommand SightingReportAdd(SightingReport SightingReport, NpgsqlConnection con)
         {
             var dataFormat = new dataFormatHandler();

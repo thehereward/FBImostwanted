@@ -1,4 +1,5 @@
-﻿@model FBI.DataAccess.MostWantedProfilesModel.Item2
+﻿@model FBI.Webpage.Models.accountViewModel
+@using FBI.DataAccess
 @{
     ViewBag.Title = "";
 }
@@ -20,8 +21,8 @@
         </div>*@
 
 @*<div class="container2">*@
-<h1>@Model.title</h1>
-@if(Model.description.Contains("Murder") || Model.description.Contains("Murderer") || Model.description.Contains("Killed") || Model.description.Contains("Murdered") || Model.description.Contains("Murdering") || Model.description.Contains("Killing") || Model.description.Contains("Homicide") || (Model.description.Contains("murder") || Model.description.Contains("murderer") || Model.description.Contains("killed") || Model.description.Contains("murdered") || Model.description.Contains("murdering") || Model.description.Contains("killing") || Model.description.Contains("homicide") && !Model.description.Contains("Murder Victim") && !Model.description.Contains("Homicide Victim") && !Model.description.Contains("murder victim") && !Model.description.Contains("homicide victim")))
+<h1>@Model.fugitive.title</h1>
+@if (Model.fugitive.description.Contains("Murder") || Model.fugitive.description.Contains("Murderer") || Model.fugitive.description.Contains("Killed") || Model.fugitive.description.Contains("Murdered") || Model.fugitive.description.Contains("Murdering") || Model.fugitive.description.Contains("Killing") || Model.fugitive.description.Contains("Homicide") || (Model.fugitive.description.Contains("murder") || Model.fugitive.description.Contains("murderer") || Model.fugitive.description.Contains("killed") || Model.fugitive.description.Contains("murdered") || Model.fugitive.description.Contains("murdering") || Model.fugitive.description.Contains("killing") || Model.fugitive.description.Contains("homicide") && !Model.fugitive.description.Contains("Murder Victim") && !Model.fugitive.description.Contains("Homicide Victim") && !Model.fugitive.description.Contains("murder victim") && !Model.fugitive.description.Contains("homicide victim")))
 {
     <p class="murderMessage"> Wanted For Murder </p>
 }
@@ -31,7 +32,7 @@
 <div id="ninja-slider">
     <div class="inner">
         <ul>
-            @foreach (var item in Model.images)
+            @foreach (var item in Model.fugitive.images)
             {
                 <li><a href="/"><img class="ns-img" src=@item style="background-size:auto 200px;"></a></li>
             }
@@ -55,12 +56,12 @@
 <div class="container2">
     <!-- edit form column -->
 
-    @{if (Model.caution != null && Model.caution != "null" && Model.caution != "caution" && Model.caution != "" && !Model.caution.IsEmpty())
+    @{if (Model.fugitive.caution != null && Model.fugitive.caution != "null" && Model.fugitive.caution != "caution" && Model.fugitive.caution != "" && !Model.fugitive.caution.IsEmpty())
         {
 
             <div class="alert alert-danger">
                 <i class="fa fa-coffee"></i>
-                Caution! <strong>@Model.caution </strong>
+                Caution! <strong>@Model.fugitive.caution </strong>
             </div>
         }
     }
@@ -77,7 +78,7 @@
             <div class="formfield">
                 <label for="m.title">Title:</label>
                 <div class="display">
-                    @Html.DisplayFor(m => m.title)
+                    @Html.DisplayFor(m => m.fugitive.title)
                 </div>
 
 
@@ -85,7 +86,7 @@
 
                 <label for="m.nationality">Nationality:</label>
                 <div class="display">
-                    @Html.DisplayFor(model => model.nationality)
+                    @Html.DisplayFor(model => model.fugitive.nationality)
                 </div>
 
 
@@ -97,31 +98,31 @@
         <div class="row">
             <div class="formfield">
 
-                @Html.HiddenFor(model => model.uid)
+                @Html.HiddenFor(model => model.fugitive.uid)
 
                 <label for="m.caution">Warning:</label>
                 <div class="display">
-                    @Html.DisplayFor(model => model.caution)
+                    @Html.DisplayFor(model => model.fugitive.caution)
                 </div>
 
                 <label for="m.Reward">Reward:</label>
 
-                <div class="display"> @Html.DisplayFor(model => model.reward_max)</div>
+                <div class="display"> @Html.DisplayFor(model => model.fugitive.reward_max)</div>
 
 
 
 
-                @Html.HiddenFor(model => model.status)
-                @Html.HiddenFor(model => model.reward_min)
+                @Html.HiddenFor(model => model.fugitive.status)
+                @Html.HiddenFor(model => model.fugitive.reward_min)
 
-                @for (int i = 0; i < Model.images.Count(); i++)
+                @for (int i = 0; i < Model.fugitive.images.Count(); i++)
                 {
-                    @Html.HiddenFor(model => model.images[i]);
+                    @Html.HiddenFor(model => model.fugitive.images[i]);
                 }
 
-                @for (int i = 0; i < Model.locations.Count(); i++)
+                @for (int i = 0; i < Model.fugitive.locations.Count(); i++)
                 {
-                    @Html.HiddenFor(model => model.locations[i]);
+                    @Html.HiddenFor(model => model.fugitive.locations[i]);
                 }
 
 
@@ -134,7 +135,7 @@
         <div class="row">
             <div class="formfield">
                 <label for="m.description">Prosecution:</label>
-                <div class="display2"> @Html.DisplayFor(model => model.description)</div>
+                <div class="display2"> @Html.DisplayFor(model => model.fugitive.description)</div>
             </div>
         </div>
 
@@ -142,20 +143,92 @@
 
         if (User.Identity.IsAuthenticated)
         {
-        <div class="adminButton">
-            @*@Html.ActionLink("Edit This Profile", "Edit", "Home", new { uid = Model.uid }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })*@
-            <input type="submit" value="Edit This Profile" formaction="@Url.Action("Edit", new { uid = Model.uid })" />
-        </div>
-                }
+            <div class="adminButton">
+                @*@Html.ActionLink("Edit This Profile", "Edit", "Home", new { uid = Model.uid }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })*@
+                <input type="submit" value="Edit This Profile" formaction="@Url.Action("Edit", new { uid = Model.fugitive.uid })" />
+            </div>
+        }
 
-                }
+    }
+
+    <div style="background-color:#efeded;  height:350px; padding-top:30px; padding-left:50px; padding-right:50px; margin-top:40px; display: block">
+        <div style="width:950px; height:50px">
+            <h4> <strong>Report a sighting</strong></h4>
+        </div>
+        @using (Html.BeginForm("AddReport", "Home", new { uid = Model.fugitive.uid }))
+        {
+
+            ReportModel report = new ReportModel();
+            report.uid = Model.fugitive.uid;
+
+            <div style="width:300px; height:200px; float:left">
+
+                @Html.HiddenFor(model => report.uid)
+                <p><strong>Date:</strong></p>
+                @Html.TextBoxFor(model => report.date)
+                <br />
+                <p><strong>Time:</strong></p>
+                @Html.TextBoxFor(model => report.time)
+                <br />
+            </div>
+            <div style="width:300px; height:200px; float:left">
+                <p><strong>Location:</strong></p>
+                @Html.TextBoxFor(model => report.addr)
+                <br />
+                <p><strong>Location Specifics:</strong></p>
+                @Html.TextBoxFor(model => report.addrspec)
+                <br />
 
             </div>
+            <div style="width:400px; height:200px; float:left">
+                <p><strong>Comments:</strong></p>
+                @Html.TextAreaFor(model => report.comment)
+                <br />
+                <button type="submit">Submit Report</button>
+            </div>
+        }
 
-            @*</div>*@
-            <hr>
-            @*<link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.min.css" />*@
-            @*<link rel="stylesheet" href="~/Content/ProfileStyle.css">*@
-            <!-- Start WOWSlider.com HEAD section -->
-            <link rel="stylesheet" href="~/Content/ProfileStyle.css" />
-            <!-- End WOWSlider.com HEAD section -->
+    </div>
+
+    <div style="background-color:#efeded;  height:350px; padding-top:30px; padding-left:50px; padding-right:50px; margin-top:40px; display: block">
+
+        <div style="width:950px; height:50px">
+            <h4><strong> Reports of sightings</strong></h4>
+        </div>
+
+        @foreach (var report in Model.reports)
+        {
+            <div style="float:left; width:300px; height:400px">
+                @if (report.verified == true)
+                {
+                    <p><b>Report id: @report.sid</b></p>
+                    <p>Date: @report.date</p>
+                    <p>Time: @report.time</p>
+                    <p>Address: @report.addr</p>
+                    <p>Address Detals: @report.addrspec</p>
+                    <p>Comments: @report.comment</p>
+                    <br /><br />
+                }
+            </div>
+        }
+
+
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+
+
+
+
+
+
+
+@*</div>*@
+<hr>
+@*<link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.min.css" />*@
+@*<link rel="stylesheet" href="~/Content/ProfileStyle.css">*@
+<!-- Start WOWSlider.com HEAD section -->
+<link rel="stylesheet" href="~/Content/ProfileStyle.css" />
+<!-- End WOWSlider.com HEAD section -->
