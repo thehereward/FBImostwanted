@@ -12,21 +12,14 @@
     <script src="~/assets/ninja-slider.js"></script>
 </head>
 
-@*<p class="text-success">@ViewBag.StatusMessage</p>
-    <div>
-        <div class="alert  alert-dismissable">
-            <a class="panel-close close" data-dismiss="alert">×</a>
-            <i class="fa fa-coffee"></i>
-            Profile Updated <strong>Successfully </strong>
-        </div>*@
 
-@*<div class="container2">*@
+
 <h1>@Model.fugitive.title</h1>
 @if (Model.fugitive.description.Contains("Murder") || Model.fugitive.description.Contains("Murderer") || Model.fugitive.description.Contains("Killed") || Model.fugitive.description.Contains("Murdered") || Model.fugitive.description.Contains("Murdering") || Model.fugitive.description.Contains("Killing") || Model.fugitive.description.Contains("Homicide") || (Model.fugitive.description.Contains("murder") || Model.fugitive.description.Contains("murderer") || Model.fugitive.description.Contains("killed") || Model.fugitive.description.Contains("murdered") || Model.fugitive.description.Contains("murdering") || Model.fugitive.description.Contains("killing") || Model.fugitive.description.Contains("homicide") && !Model.fugitive.description.Contains("Murder Victim") && !Model.fugitive.description.Contains("Homicide Victim") && !Model.fugitive.description.Contains("murder victim") && !Model.fugitive.description.Contains("homicide victim")))
 {
     <p class="murderMessage"> Wanted For Murder </p>
 }
-@*<div class="row">*@
+
 
 
 <div id="ninja-slider">
@@ -40,21 +33,9 @@
         </ul>
     </div>
 </div>
-@*<div id="sliderFrame">
-        <div id="slider">
-            @foreach (var item in Model.images)
-            {
-                <img src=@item alt="pic" height="306" />
-            }
 
-
-
-        </div>
-    </div>*@
-
-@*</div>*@
 <div class="container2">
-    <!-- edit form column -->
+   
 
     @{if (Model.fugitive.caution != null && Model.fugitive.caution != "null" && Model.fugitive.caution != "caution" && Model.fugitive.caution != "" && !Model.fugitive.caution.IsEmpty())
         {
@@ -144,7 +125,7 @@
         if (User.Identity.IsAuthenticated)
         {
             <div class="adminButton">
-                @*@Html.ActionLink("Edit This Profile", "Edit", "Home", new { uid = Model.uid }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })*@
+               
                 <input type="submit" value="Edit This Profile" formaction="@Url.Action("Edit", new { uid = Model.fugitive.uid })" />
             </div>
         }
@@ -225,10 +206,6 @@
 
 
 
-@*</div>*@
-<hr>
-@*<link rel="stylesheet" href="https://bootswatch.com/4/simplex/bootstrap.min.css" />*@
-@*<link rel="stylesheet" href="~/Content/ProfileStyle.css">*@
-<!-- Start WOWSlider.com HEAD section -->
+
 <link rel="stylesheet" href="~/Content/ProfileStyle.css" />
-<!-- End WOWSlider.com HEAD section -->
+
