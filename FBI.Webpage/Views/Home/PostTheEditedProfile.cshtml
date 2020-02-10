@@ -155,6 +155,10 @@
 
     function test() {
         var tst = $("#pc").val();
+        if (tst == "") {
+
+        }
+        else
         $.ajax({
             dataType : "text",
                 url: '@Url.Action("GetLocationDetails","Home")',
