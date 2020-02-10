@@ -55,11 +55,10 @@ namespace FBI.Webpage.Controllers
 
         public ActionResult AddReport(ReportModel report, string uid)
         {
-            var datahandler = new DataHandler();
             var nullremove = new dataFormatHandler();
             report = nullremove.RemoveNulls(report);
 
-            datahandler.ReportSighting(report);
+            dataHandler.ReportSighting(report);
             return RedirectToAction("PostTheEditedProfile", "Home", new { uid = uid });
         }
 

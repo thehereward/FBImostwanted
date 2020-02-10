@@ -32,12 +32,13 @@ namespace FBI.DataAccess
 
         foreach (PropertyInfo pi in myObject.GetType().GetProperties())
             {
+                var item = pi.GetValue(myObject, null);
                 if (pi.PropertyType == typeof(string))
                 {
                     string value = (string)pi.GetValue(myObject);
                     if (string.IsNullOrEmpty(value))
                     {
-                        pi.SetValue(pi,"null");
+                        pi.SetValue(myObject,"null");
                     }
                 }
             }
