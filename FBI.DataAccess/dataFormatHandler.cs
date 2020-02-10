@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace FBI.DataAccess
@@ -25,5 +26,23 @@ namespace FBI.DataAccess
 
             return input;
         }
+
+        public ReportModel RemoveNulls(ReportModel myObject)
+        {
+
+        foreach (PropertyInfo pi in myObject.GetType().GetProperties())
+            {
+                if (pi.PropertyType == typeof(string))
+                {
+                    string value = (string)pi.GetValue(myObject);
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        pi.SetValue(pi,"null");
+                    }
+                }
+            }
+            return myObject;
+        }
+
     }
 }

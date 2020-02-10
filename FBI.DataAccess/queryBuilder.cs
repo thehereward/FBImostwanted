@@ -104,7 +104,7 @@ ON CONFLICT (uid) DO NOTHING";
         public NpgsqlCommand Nuke(NpgsqlConnection con)
         {
             
-            var str = $"DELETE FROM item";
+            var str = $"TRUNCATE item, sightings;";
 
             NpgsqlCommand cmd = new NpgsqlCommand()
             {
